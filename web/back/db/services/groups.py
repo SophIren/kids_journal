@@ -1,5 +1,7 @@
 from typing import Any
 
+import ydb
+
 from db.utils import _format_unix_time
 from models.child import ChildModelResponse
 from models.groups import GroupModel
@@ -7,14 +9,16 @@ from models.parents import ParentModelResponse
 
 
 class GroupService:
-    def __init__(self, ydb_pool: Any, db_prefix: str):
+    # cr(anton92nd): Будет легче разрабатывать, если указывать типы параметров
+    def __init__(self, ydb_pool: ydb.SessionPool, db_prefix: str):
         self._pool = ydb_pool
         self._db_prefix = db_prefix
 
     def create_group(self, args_model: GroupModel):
         args = args_model.model_dump(exclude_none=False, mode="json")
 
-        def callee(session: Any):
+        # cr(anton92nd): Будет легче разрабатывать, если указывать типы параметров
+        def callee(session: ydb.Session):
             session.transaction().execute(
                 """
                 PRAGMA TablePathPrefix("{db_prefix}");

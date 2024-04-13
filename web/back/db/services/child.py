@@ -18,6 +18,9 @@ class ChildService:
             "start_education_time",
             "end_education_time",
         ]
+        # cr(anton92nd): Лучше пометить эти поля в модели как требующие кастомной сериализации
+        # В pydantic есть такая штука:
+        # https://docs.pydantic.dev/latest/api/functional_serializers/#pydantic.functional_serializers.field_serializer
         for field in datetime_fields:
             args[field] = _format_date_time(args[field])
 
