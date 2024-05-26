@@ -94,7 +94,14 @@ def create_tables(session_pool: Any, path: Path):
                 ydb.Column("name", ydb.OptionalType(ydb.PrimitiveType.Utf8)),
                 ydb.Column("first_name", ydb.OptionalType(ydb.PrimitiveType.Utf8)),
                 ydb.Column("last_name", ydb.OptionalType(ydb.PrimitiveType.Utf8)),
+
+                # cr(anton92nd): тип Date хранит дату с точностью до дня, здесь точнее и не нужно
                 ydb.Column("birth_date", ydb.OptionalType(ydb.PrimitiveType.Datetime)),
+
+                # cr(anton92nd):
+                # Нет нужды в двух полях date и time, можно сделать одно поле start_education_datetime.
+                # Типа DateTime, который хранит метку времени с точностью до секунд, должно быть достаточно.
+                # Аналогично с end_education_timestamp.
                 ydb.Column(
                     "start_education_date", ydb.OptionalType(ydb.PrimitiveType.Datetime)
                 ),
@@ -122,6 +129,8 @@ def create_tables(session_pool: Any, path: Path):
             ),
         )
 
+        # cr(anton92nd): Название таблицы ок, но почему ключ schedule_id? Может lesson_id?
+        # Не забыть поменять в остальных местах (например, в предыдущей и следующей таблицах).
         # schedule
         session.create_table(
             str(path / "schedule"),
@@ -180,6 +189,7 @@ def create_tables(session_pool: Any, path: Path):
             .with_columns(
                 ydb.Column("child_id", ydb.PrimitiveType.Utf8),
                 ydb.Column("skill_id", ydb.PrimitiveType.Utf8),
+                # cr(anton92nd): skill_level_id?
                 ydb.Column(
                     "success_level_id", ydb.OptionalType(ydb.PrimitiveType.Utf8)
                 ),
@@ -191,6 +201,9 @@ def create_tables(session_pool: Any, path: Path):
             ),
         )
 
+        # cr(anton92nd): Здесь какая-то путаница. По условию задачи это "презентация это демонстрация достижения".
+        # Здесь же presentation это что-то связанное с предметом.
+        # Нужно разобраться в клубке понятий subject, presentation, skill.
         # subject_presentation
         session.create_table(
             str(path / "subject_presentation"),
@@ -202,6 +215,8 @@ def create_tables(session_pool: Any, path: Path):
             ),
         )
 
+        # cr(anton92nd): может все же переименовать в users, или уже поздно?
+        # Судя по схеме в drawsql здесь хранятся как преподаватели, так и родители.
         # employee
         session.create_table(
             str(path / "employee"),
@@ -217,7 +232,10 @@ def create_tables(session_pool: Any, path: Path):
                 ydb.Column("phone_number", ydb.OptionalType(ydb.PrimitiveType.Utf8)),
                 ydb.Column("avatar_url", ydb.OptionalType(ydb.PrimitiveType.Utf8)),
                 ydb.Column("tg_user_id", ydb.OptionalType(ydb.PrimitiveType.Utf8)),
+                # cr(anton92nd): А пользователь не может быть одновременно преподавателем и родителем?
+                # Или администратором, преподавателем и родителем?
                 ydb.Column("role_id", ydb.OptionalType(ydb.PrimitiveType.Utf8)),
+                # cr(anton92nd): Согласен с комметнарием ниже, странная колонка
                 ydb.Column(
                     "group_ids", ydb.OptionalType(ydb.PrimitiveType.Utf8)
                 ),  # Опять дичь какая-то
@@ -227,6 +245,7 @@ def create_tables(session_pool: Any, path: Path):
             ),
         )
 
+        # В схеме вроде нет отдельной таблицы parent, они часть users.
         # parent
         session.create_table(
             str(path / "parent"),
