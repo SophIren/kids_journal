@@ -10,9 +10,10 @@ from src.dependencies import create_user_service
 async def create_parent(
     parent: UserModel,
     user_service=Depends(create_user_service),
-) -> None:
+) -> UserModel:
     user_service.upsert_user(parent)
     user_service.link_role(user_id=parent.user_id, role=models.Roles.PARENT)
+    return parent
 
 
 async def get_parent_by_tg_id(

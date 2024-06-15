@@ -14,8 +14,9 @@ async def upsert_presentation(
     presentation: PresentationModel,
     subject_id: str = Path(...),
     presentation_service: PresentationService = Depends(create_presentation_service),
-) -> None:
+) -> PresentationModel:
     presentation_service.upsert_presentation(presentation)
+    return presentation
 
 
 async def get_presentation(

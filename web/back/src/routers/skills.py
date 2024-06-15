@@ -8,8 +8,9 @@ from src.dependencies import create_skill_service
 async def upsert_skill_level(
     skill_level: SkillLevelModel,
     skill_service=Depends(create_skill_service),
-) -> None:
+) -> SkillLevelModel:
     skill_service.upsert_skill_level(skill_level)
+    return skill_level
 
 
 async def get_skill_level_by_id(

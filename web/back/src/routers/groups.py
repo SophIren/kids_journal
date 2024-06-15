@@ -11,8 +11,9 @@ from src.dependencies import create_group_service
 async def add_group_to_organization(
     group: GroupModel,
     group_service: GroupService = Depends(create_group_service),
-) -> None:
+) -> GroupModel:
     group_service.create_group(group)
+    return group
 
 
 async def get_groups_by_organization(
