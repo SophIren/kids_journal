@@ -83,6 +83,27 @@ class UserService:
 
         return UserModel.model_validate(rows[0])
 
+    def get_by_id(self, user_id: str) -> UserModel | None:
+        def callee(session: ydb.Session):
+            return session.transaction().execute(
+                """
+                PRAGMA TablePathPrefix("{db_prefix}");
+                SELECT *
+                FROM user
+                WHERE user_id = "{user_id}"
+                """.format(
+                    db_prefix=self._db_prefix,
+                    user_id=user_id,
+                ),
+                commit_tx=True,
+            )
+
+        rows = self._pool.retry_operation_sync(callee)[0].rows
+        if not rows:
+            return None
+
+        return UserModel.model_validate(rows[0])
+
     def get_by_phone(self, phone_number: str) -> UserModel | None:
         def callee(session: ydb.Session):
             return session.transaction().execute(

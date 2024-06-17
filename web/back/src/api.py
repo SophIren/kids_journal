@@ -42,7 +42,7 @@ from src.routers.groups import (  # add_children_to_group,
     delete_group,
     get_children_by_group_id,
     get_group,
-    get_groups_by_organization,
+    get_groups_by_organization, get_employees_for_group,
 )
 from src.routers.organization import (
     create_organization,
@@ -75,6 +75,7 @@ def init_app() -> FastAPI:
 
     # Groups
     router.add_api_route("/groups", add_group_to_organization, methods=["POST"])
+    router.add_api_route("/groups/employees", get_employees_for_group, methods=["GET"])
     router.add_api_route(
         "/organizations/{organization_id}/groups",
         get_groups_by_organization,
