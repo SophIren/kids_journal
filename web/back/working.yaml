@@ -1,0 +1,1464 @@
+---
+openapi: 3.0.0
+info:
+  title: FastAPI
+  version: 0.1.0
+servers:
+- url: https://d5de0lctsr23htkj7hlj.apigw.yandexcloud.net
+x-yc-apigateway:
+  service_account_id: ajec0sj89ke5nr84p7bs
+  cors:
+    origin: '*'
+    methods: '*'
+    allowedHeaders: '*'
+paths:
+  "/groups":
+    post:
+      summary: Add Group To Organization
+      operationId: add_group_to_organization_groups_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/GroupModel"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/organizations/{organization_id}/groups":
+    get:
+      summary: Get Groups By Organization
+      operationId: get_groups_by_organization_organizations__organization_id__groups_get
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Organization Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/GroupModel"
+                title: Response Get Groups By Organization Organizations  Organization
+                  Id  Groups Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/groups/{group_id}":
+    get:
+      summary: Get Group
+      operationId: get_group_groups__group_id__get
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Group Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - "$ref": "#/components/schemas/GroupModel"
+                nullable: true
+                title: Response Get Group Groups  Group Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    delete:
+      summary:  Delete Group
+      operationId: delete_group_groups__group_id__delete
+      parameters:
+      - name: group_id
+        in: "path"
+        required: true
+        schema:
+          type: string
+          title: Group Id
+      responses:
+        '200':
+          description: Successful Response,
+          content:
+            application/json:
+              schema:
+                type: null
+                title: Response Delete Group Groups  Group Id  Delete
+        '422':
+          description: Validation Error,
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+
+  "/groups/link_children":
+    post:
+      summary: Add Children To Group
+      operationId: add_children_to_group_groups_link_children_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/GroupChildModel"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/organizations":
+    get:
+      summary: Get Organizations
+      operationId: get_organizations_organizations_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  "$ref": "#/components/schemas/OrganizationModel"
+                type: array
+                title: Response Get Organizations Organizations Get
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    post:
+      summary: Create Organization
+      operationId: create_organization_organizations_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/OrganizationModel"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/organizations/{phone_number}":
+    get:
+      summary: Get Organizations For User By Phone
+      operationId: get_organizations_for_user_by_phone_organizations__phone_number__get
+      parameters:
+      - name: phone_number
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Phone Number
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response Get Organizations For User By Phone Organizations  Phone
+                  Number  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/organizations/{organization_id}":
+    get:
+      summary: Get Organization
+      operationId: get_organization_organizations__organization_id__get
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Organization Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - "$ref": "#/components/schemas/OrganizationModel"
+                nullable: true
+                title: Response Get Organization Organizations  Organization Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/login":
+    get:
+      summary: Login
+      operationId: login_login_get
+      parameters:
+      - name: id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          nullable: true
+          title: Id
+      - name: first_name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          nullable: true
+          title: First Name
+      - name: last_name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Last Name
+      - name: username
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Username
+      - name: photo_url
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Photo Url
+      - name: auth_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Auth Date
+      - name: hash
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Hash
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/parents":
+    post:
+      summary: Create Parent
+      operationId: create_parent_parents_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ParentModel"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/parents/{tg_id}":
+    get:
+      summary: Get Parent By Tg Id
+      operationId: get_parent_by_tg_id_parents__tg_id__get
+      parameters:
+      - name: tg_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tg Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - "$ref": "#/components/schemas/ParentModel"
+                nullable: true
+                title: Response Get Parent By Tg Id Parents  Tg Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/parents/child/{child_id}":
+    get:
+      summary: Get Parents By Child Id
+      operationId: get_parents_by_child_id_parents_child__child_id__get
+      parameters:
+      - name: child_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Child Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                nullable: true
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ParentModel"
+                  nullable: true
+                minItems: 2
+                maxItems: 2
+                title: Response Get Parents By Child Id Parents Child  Childid  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/organizations/{organization_id}/employee":
+    post:
+      summary: Create Employee
+      operationId: create_employee_organizations__organization_id__employee_post
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Organization Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/EmployeeModel"
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    get:
+      summary: Get Employees For Organization
+      operationId: get_employees_for_organization_organizations__organization_id__employee_get
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Organization Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/EmployeeResponse"
+                title: Response Get Employees For Organization Organizations  Organization
+                  Id  Employee Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/employee/{tg_id}":
+    get:
+      summary: Get Employee By Tg Id
+      operationId: get_employee_by_tg_id_employee__tg_id__get
+      parameters:
+      - name: tg_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tg Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - "$ref": "#/components/schemas/EmployeeModel"
+                nullable: true
+                title: Response Get Employee By Tg Id Employee  Tg Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/employee/phone/{phone}":
+    get:
+      summary: Get Employee By Phone
+      operationId: get_employee_by_phone_employee_phone__phone__get
+      parameters:
+      - name: phone
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Phone
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - "$ref": "#/components/schemas/EmployeeModel"
+                nullable: true
+                title: Response Get Employee By Phone Employee Phone  Phone  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/employee/{phone}/organizations":
+    get:
+      summary: Get Employees Organization Names By Phone
+      operationId: get_employees_organization_names_by_phone_employee__phone__organizations_get
+      parameters:
+      - name: phone
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Phone
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                title: Response Get Employees Organization Names By Phone Employee  Phone  Organizations
+                  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/{group_id}/child":
+    post:
+      summary: Create Child
+      operationId: create_child__group_id__child_post
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Group Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ChildModel"
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    get:
+      summary: Get Children By Group Id
+      operationId: get_children_by_group_id__group_id__child_get
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Group Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ChildModelResponse"
+                title: Response Get Children By Group Id  Group Id  Child Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/user_merge":
+    post:
+      summary: Try Merge User By Phone
+      operationId: try_merge_user_by_phone_user_merge_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/MergeUserModel"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UserModelResponse"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/organizations/{organization_id}/subjects/{subject_id}":
+    get:
+      summary: Get Subject
+      operationId: get_subject_organizations__organization_id__subjects__subject_id__get
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Organization Id
+      - name: subject_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Subject Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/SubjectModel"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/organizations/{organization_id}/subjects":
+    get:
+      summary: Get All Subjects For Organization
+      operationId: get_all_subjects_for_organization_organizations__organization_id__subjects_get
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Organization Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/SubjectModel"
+                title: Response Get All Subjects For Organization Organizations  Organization
+                  Id  Subjects Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    post:
+      summary: Create Subject
+      operationId: create_subject_organizations__organization_id__subjects_post
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Organization Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SubjectModel"
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/subjects/{subject_id}/presentations":
+    post:
+      summary: Create Presentation
+      operationId: create_presentation_subjects__subject_id__presentations_post
+      parameters:
+      - name: subject_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Subject Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PresentationModel"
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    get:
+      summary: Get Presentations
+      operationId: get_presentations_subjects__subject_id__presentations_get
+      parameters:
+      - name: subject_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Subject Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - type: array
+                  items:
+                    "$ref": "#/components/schemas/PresentationModel"
+                nullable: true
+                title: Response Get Presentations Subjects  Subject Id  Presentations
+                  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/organizations/{organization_id}/subjects/{subject_id}/{presentation_id}":
+    get:
+      summary: Get Presentation
+      operationId: get_presentation_organizations__organization_id__subjects__subject_id___presentation_id__get
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Organization Id
+      - name: subject_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Subject Id
+      - name: presentation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Presentation Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - "$ref": "#/components/schemas/PresentationModel"
+                nullable: true
+                title: Response Get Presentation Organizations  Organization Id  Subjects  Subject
+                  Id   Presentation Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/lessons":
+    post:
+      summary: Create Lesson
+      operationId: create_lesson_lessons_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ScheduleModel"
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  "/lessons/{group_id}":
+    get:
+      summary: Get Schedule For Group
+      operationId: get_schedule_for_group_lessons__group_id__get
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Group Id
+      - name: date_day
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+          title: Date Day
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ScheduleModelResponse"
+                title: Response Get Schedule For Group Lessons  Group Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+components:
+  schemas:
+    AgeRanges:
+      type: string
+      enum:
+      - 0-3
+      - 3-6
+      - 6-9
+      title: AgeRanges
+    ChildModel:
+      properties:
+        child_id:
+          type: string
+          title: Child Id
+        name:
+          type: string
+          title: Name
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Last Name
+        birth_date:
+          anyOf:
+          - type: string
+            format: date-time
+          nullable: true
+          title: Birth Date
+        start_education_date:
+          anyOf:
+          - type: string
+            format: date-time
+          nullable: true
+          title: Start Education Date
+        start_education_time:
+          anyOf:
+          - type: string
+            format: date-time
+          nullable: true
+          title: Start Education Time
+        end_education_time:
+          anyOf:
+          - type: string
+            format: date-time
+          nullable: true
+          title: End Education Time
+        gender:
+          anyOf:
+          - "$ref": "#/components/schemas/Gender"
+          nullable: true
+        parent_1_id:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Parent 1 Id
+        parent_2_id:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Parent 2 Id
+      type: object
+      required:
+      - child_id
+      - name
+      - first_name
+      title: ChildModel
+    ChildModelResponse:
+      properties:
+        child_id:
+          type: string
+          title: Child Id
+        name:
+          type: string
+          title: Name
+        birth_date:
+          anyOf:
+          - type: string
+            format: date-time
+          nullable: true
+          title: Birth Date
+        parent_1:
+          anyOf:
+          - "$ref": "#/components/schemas/ParentModelResponse"
+          nullable: true
+        parent_2:
+          anyOf:
+          - "$ref": "#/components/schemas/ParentModelResponse"
+          nullable: true
+      type: object
+      required:
+      - child_id
+      - name
+      title: ChildModelResponse
+    EmployeeModel:
+      properties:
+        employee_id:
+          type: string
+          title: Employee Id
+          default: 115036a2-06d3-46de-a093-b1576987af74
+        name:
+          type: string
+          title: Name
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Last Name
+        email:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Email
+        gender:
+          anyOf:
+          - "$ref": "#/components/schemas/Gender"
+          nullable: true
+        phone_number:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Phone Number
+        tg_user_id:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Tg User Id
+        role_id:
+          anyOf:
+          - "$ref": "#/components/schemas/Role"
+          nullable: true
+        group_ids:
+          items:
+            type: string
+          type: array
+          title: Group Ids
+          default: []
+      type: object
+      required:
+      - name
+      - first_name
+      title: EmployeeModel
+    EmployeeResponse:
+      properties:
+        employee_id:
+          type: string
+          title: Employee Id
+          default: 4c5eaac6-42fd-49cc-95c2-e5594f53a786
+        name:
+          type: string
+          title: Name
+        phone_number:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Phone Number
+        role_id:
+          anyOf:
+          - "$ref": "#/components/schemas/Role"
+          nullable: true
+      type: object
+      required:
+      - name
+      title: EmployeeResponse
+    Gender:
+      type: string
+      enum:
+      - MALE
+      - FEMALE
+      title: Gender
+    GroupChildModel:
+      properties:
+        group_id:
+          type: string
+          title: Group Id
+          default: b25b0737-18ac-443c-b2dd-3d17861c58fb
+        child_ids:
+          items:
+            type: string
+          type: array
+          title: Child Ids
+          default: []
+      type: object
+      title: GroupChildModel
+    GroupModel:
+      properties:
+        group_id:
+          type: string
+          title: Group Id
+          default: 7d26855a-c481-44eb-8fb8-be9bbf419c51
+        organization_id:
+          type: string
+          title: Organization Id
+        name:
+          type: string
+          title: Name
+        age_range:
+          "$ref": "#/components/schemas/AgeRanges"
+      type: object
+      required:
+      - organization_id
+      - name
+      - age_range
+      title: GroupModel
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            "$ref": "#/components/schemas/ValidationError"
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    MergeUserModel:
+      properties:
+        phone_number:
+          type: string
+          title: Phone Number
+        tg_user_id:
+          type: string
+          title: Tg User Id
+      type: object
+      required:
+      - phone_number
+      - tg_user_id
+      title: MergeUserModel
+    OrganizationModel:
+      properties:
+        organization_id:
+          type: string
+          title: Organization Id
+          default: 7f77d4b9-fb74-4450-9c3d-0b82cc050bb5
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Description
+        photo_url:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Photo Url
+        start_education_time:
+          type: string
+          format: date-time
+          title: Start Education Time
+          default: '2024-01-18T11:42:45.451051Z'
+        end_education_time:
+          type: string
+          format: date-time
+          title: End Education Time
+          default: '2024-01-18T11:42:45.451534Z'
+        registration_date:
+          type: string
+          format: date-time
+          title: Registration Date
+          default: '2024-01-18T11:42:45.451537Z'
+        updated_date:
+          type: string
+          format: date-time
+          title: Updated Date
+          default: '2024-01-18T11:42:45.451539Z'
+      type: object
+      required:
+      - name
+      title: OrganizationModel
+    ParentModel:
+      properties:
+        parent_id:
+          type: string
+          title: Parent Id
+          default: e6553c03-6abe-4417-8c84-9f8edc216021
+        name:
+          type: string
+          title: Name
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Last Name
+        email:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Email
+        gender:
+          anyOf:
+          - "$ref": "#/components/schemas/Gender"
+          nullable: true
+        phone_number:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Phone Number
+        freq_notifications:
+          type: integer
+          title: Freq Notifications
+          default: 0
+        tg_user_id:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Tg User Id
+      type: object
+      required:
+      - name
+      - first_name
+      title: ParentModel
+    ParentModelResponse:
+      properties:
+        parent_id:
+          type: string
+          title: Parent Id
+        name:
+          type: string
+          title: Name
+        phone_number:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Phone Number
+      type: object
+      required:
+      - parent_id
+      - name
+      title: ParentModelResponse
+    PresentationModel:
+      properties:
+        presentation_id:
+          type: string
+          title: Presentation Id
+          default: ab8997e4-afc2-4c7b-8120-e1e4fc9c2037
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Description
+        photo_url:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Photo Url
+        file_url:
+          anyOf:
+          - type: string
+          nullable: true
+          title: File Url
+      type: object
+      required:
+      - name
+      title: PresentationModel
+    Role:
+      type: string
+      enum:
+      - РђРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ
+      - Р’РѕСЃРїРёС‚Р°С‚РµР»СЊ
+      - РќСЏРЅРµС‡РєР°
+      title: Role
+    ScheduleModel:
+      properties:
+        schedule_id:
+          type: string
+          title: Schedule Id
+          default: 13397a3a-87d6-4a58-a38e-4834d896a296
+        group_id:
+          type: string
+          title: Group Id
+        teacher_id:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Teacher Id
+        subject_id:
+          type: string
+          title: Subject Id
+        presentation_id:
+          type: string
+          title: Presentation Id
+        start_lesson:
+          type: string
+          format: date-time
+          title: Start Lesson
+        end_lesson:
+          anyOf:
+          - type: string
+            format: date-time
+          nullable: true
+          title: End Lesson
+        child_id:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          nullable: true
+          title: Child Id
+        description:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Description
+        note_id:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Note Id
+        canceled:
+          type: boolean
+          title: Canceled
+          default: false
+      type: object
+      required:
+      - group_id
+      - subject_id
+      - presentation_id
+      - start_lesson
+      title: ScheduleModel
+    ScheduleModelResponse:
+      properties:
+        schedule_id:
+          type: string
+          title: Schedule Id
+        subject_name:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Subject Name
+        presentation_id:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Presentation Id
+        group_name:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Group Name
+        child_names:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          nullable: true
+          title: Child Names
+        date_day:
+          type: string
+          format: date-time
+          title: Date Day
+        description:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Description
+        is_for_child:
+          type: boolean
+          title: Is For Child
+          default: false
+      type: object
+      required:
+      - schedule_id
+      - date_day
+      title: ScheduleModelResponse
+    SubjectModel:
+      properties:
+        subject_id:
+          type: string
+          title: Subject Id
+          default: c037e4a9-53a6-4975-81d1-c57200377445
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Description
+        age_range:
+          anyOf:
+          - type: string
+          nullable: true
+          title: Age Range
+      type: object
+      required:
+      - name
+      title: SubjectModel
+    UserModelResponse:
+      properties:
+        role:
+          allOf:
+          - "$ref": "#/components/schemas/UserRole"
+          default: unknown
+        data:
+          anyOf:
+          - "$ref": "#/components/schemas/ParentModel"
+          - "$ref": "#/components/schemas/EmployeeModel"
+          nullable: true
+          title: Data
+      type: object
+      title: UserModelResponse
+    UserRole:
+      type: string
+      enum:
+      - parent
+      - employee
+      - unknown
+      title: UserRole
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
