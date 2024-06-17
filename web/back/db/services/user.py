@@ -332,6 +332,24 @@ class UserService:
 
         return self._pool.retry_operation_sync(callee)
 
+    def get_roles_by_user(self, user_id: str) -> list[models.Roles]:
+        def callee(session: ydb.Session):
+            return session.transaction().execute(
+                """
+                PRAGMA TablePathPrefix("{db_prefix}");
+                SELECT *
+                FROM user_role
+                WHERE user_id = "{user_id}"
+                """.format(
+                    db_prefix=self._db_prefix,
+                    user_id=user_id
+                ),
+                commit_tx=True,
+            )
+
+        rows = self._pool.retry_operation_sync(callee)[0].rows
+        return [models.Roles(row["role"]) for row in rows]
+
     def delete_by_id(self, user_id: str) -> None:
         def callee(session: ydb.Session):
             return session.transaction().execute(
