@@ -14,12 +14,13 @@ async def upsert_employee(
     organization_id: str = Path(...),
     user_service=Depends(create_user_service),
     groups_service=Depends(create_group_service),
-) -> None:
+) -> UserModel:
     user_service.upsert_user(employee)
     user_service.link_user_to_organization(
         organization_id=organization_id, user_id=employee.user_id
     )
     user_service.link_role(user_id=employee.user_id, role=models.Roles.EMPLOYEE)
+    return employee
 
 
 async def link_employee_to_group(

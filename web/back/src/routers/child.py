@@ -12,11 +12,12 @@ async def upsert_child(
     child: ChildModel,
     group_id: str | None,
     child_service=Depends(create_child_service),
-) -> None:
+) -> ChildModel:
     child_service.upsert_child(child)
     if group_id:
         child_service.unlink_from_groups(child.child_id)
         child_service.link_to_group(group_id, child.child_id)
+    return child
 
 
 async def delete_child(

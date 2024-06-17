@@ -137,3 +137,21 @@ class GroupService:
             )
 
         return result
+
+    def get_employee_ids_by_group_id(self, group_id: str) -> list[str]:
+        def callee(session: ydb.Session):
+            return session.transaction().execute(
+                """
+                PRAGMA TablePathPrefix("{db_prefix}");
+                SELECT teacher_id
+                FROM group_teacher
+                WHERE group_id = "{group_id}"
+                """.format(
+                    db_prefix=self._db_prefix,
+                    group_id=group_id
+                ),
+                commit_tx=True,
+            )
+
+        rows = self._pool.retry_operation_sync(callee)[0].rows
+        return [row["teacher_id"] for row in rows]
