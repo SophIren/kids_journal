@@ -24,3 +24,9 @@ async def delete_child(
     child_id: str, child_service=Depends(create_child_service)
 ) -> None:
     return child_service.delete_by_id(child_id=child_id)
+
+
+async def get_child_by_id(
+    child_id: str, child_service=Depends(create_child_service)
+) -> ChildModel:
+    return child_service.get_child_by_id(child_id=child_id)

@@ -3,11 +3,12 @@ from __future__ import annotations
 from fastapi import Depends
 from fastapi.params import Path
 
+from db.services.child import ChildService
 from db.services.groups import GroupModel, GroupService
 from db.services.user import UserService
-from models.child import ChildModelResponse
+from models.child import ChildModelResponse, ChildModel
 from models.user import UserModel
-from src.dependencies import create_group_service, create_user_service
+from src.dependencies import create_group_service, create_user_service, create_child_service
 
 
 async def add_group_to_organization(
@@ -44,9 +45,15 @@ async def get_group(
 
 async def get_children_by_group_id(
     group_id: str,
-    group_service: GroupService = Depends(create_group_service)
-) -> list[ChildModelResponse]:
-    return group_service.get_children_by_group_id(group_id)
+    group_service: GroupService = Depends(create_group_service),
+    child_service: ChildService = Depends(create_child_service)
+) -> list[ChildModel]:
+    child_ids = group_service.get_children_ids_by_group_id(group_id)
+    children = []
+    for child_id in child_ids:
+        child = child_service.get_child_by_id(child_id)
+        children.append(child)
+    return children
 
 
 async def delete_group(

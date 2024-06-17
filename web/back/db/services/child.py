@@ -1,8 +1,6 @@
-from typing import Any
-
 import ydb
 
-from db.utils import _format_date_time, _format_date_time_to_date
+from db.utils import _format_date_time_to_date, _convert_ydb_date_to_pydantic
 from models.child import ChildModel
 
 
@@ -87,7 +85,7 @@ class ChildService:
                 PRAGMA TablePathPrefix("{db_prefix}");
                 SELECT *
                 FROM child
-                WHERE id = "{child_id}"
+                WHERE child_id = "{child_id}"
                 """.format(
                     db_prefix=self._db_prefix,
                     child_id=child_id,
@@ -100,7 +98,18 @@ class ChildService:
             return None
         if len(rows) > 1:
             raise ValueError("Duplicated id in db table")
-        return ChildModel.model_validate(rows[0])
+        row = rows[0]
+        return ChildModel(
+            child_id=row["child_id"],
+            first_name=row["first_name"],
+            middle_name=row["middle_name"],
+            last_name=row["last_name"],
+            birth_date=_convert_ydb_date_to_pydantic(row["birth_date"]),
+            start_education_date=_convert_ydb_date_to_pydantic(row["start_education_date"]),
+            end_education_date=_convert_ydb_date_to_pydantic(row["end_education_date"]),
+            gender=row["gender"],
+            avatar_url=row["avatar_url"],
+        )
 
     def delete_by_id(self, child_id: str):
         def callee(session: ydb.Session):
