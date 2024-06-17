@@ -25,7 +25,7 @@ from routers.subject import (
 )
 from src.exception_handlers.unauthorized import handle_auth_error
 from src.routers.auth import login
-from src.routers.child import delete_child, upsert_child
+from src.routers.child import delete_child, upsert_child, get_child_by_id
 from src.routers.employee import (
     delete_employee,
     get_employees_for_organization,
@@ -158,6 +158,7 @@ def init_app() -> FastAPI:
         "/children/{child_id}/skills/", get_all_skills_for_child, methods=["GET"]
     )
     router.add_api_route("/children/{child_id}", delete_child, methods=["DELETE"])
+    router.add_api_route("/children/{child_id}", get_child_by_id, methods=["GET"])
 
     # User
     router.add_api_route("/user_merge", try_merge_user_by_phone, methods=["POST"])

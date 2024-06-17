@@ -23,6 +23,6 @@ class ChildModel(BaseModel):
 class ChildModelResponse(BaseModel):
     child_id: str
     name: str
-    birth_date: datetime | None = None
+    birth_date: date | None = None
     # parent_1: UserModelResponse | None = None
     # parent_2: UserModelResponse | None = None
