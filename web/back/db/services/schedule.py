@@ -142,7 +142,7 @@ class ScheduleService:
             return session.transaction().execute(
                 """
                 PRAGMA TablePathPrefix("{db_prefix}");
-                SELECT DISTINCT cs.schedule_id, s.start_lesson, s.presentation_id
+                SELECT DISTINCT cs.schedule_id, s.start_lesson, s.presentation_id, s.end_lesson
                 FROM child_schedule as cs
                 JOIN schedule as s ON cs.schedule_id = s.schedule_id 
                 WHERE cs.child_id = "{child_id}" AND s.start_lesson >= {date_str_start} AND s.start_lesson < {date_str_end}
@@ -163,7 +163,8 @@ class ScheduleService:
             result.append(
                 ScheduleModelResponse(
                     schedule_id=row["cs.schedule_id"],
-                    date_day=date_day,
+                    start_lesson=row["cs.start_lesson"],
+                    end_lesson=row["cs.end_lesson"],
                     presentation_id=row["s.presentation_id"],
                     is_for_child=True,
                 )
@@ -177,7 +178,7 @@ class ScheduleService:
             return session.transaction().execute(
                 """
                 PRAGMA TablePathPrefix("{db_prefix}");
-                SELECT s.schedule_id, s.presentation_id, s.start_lesson
+                SELECT s.schedule_id, s.presentation_id, s.start_lesson, s.end_lesson
                 FROM schedule as s
                 JOIN group_schedule as gs ON gs.schedule_id = s.schedule_id
                 JOIN group as g ON g.group_id = gs.group_id
@@ -200,8 +201,9 @@ class ScheduleService:
                 ScheduleModelResponse(
                     schedule_id=row["s.schedule_id"],
                     is_for_child=False,
-                    date_day=date_day,
                     presentation_id=row["s.presentation_id"],
+                    start_lesson=row["s.start_lesson"],
+                    end_lesson=row["s.end_lesson"],
                 )
             )
         return result
