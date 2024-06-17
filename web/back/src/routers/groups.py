@@ -56,7 +56,7 @@ async def delete_group(
 
 
 async def get_employees_for_group(
-    group_id: str,
+    group_id: str = Path(...),
     group_service: GroupService = Depends(create_group_service),
     user_service: UserService = Depends(create_user_service)
 ) -> list[UserModel]:
