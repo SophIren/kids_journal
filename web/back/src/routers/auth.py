@@ -35,6 +35,7 @@ def _create_jwt_token(
     token = jwt.encode(
         {
             "user_id": employee.tg_user_id,
+            "role": "Администратор",  # ToDo: Пиздец
             "phone_number": employee.phone_number,
         },
         jwt_settings.secret_key,
