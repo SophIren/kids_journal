@@ -1,6 +1,6 @@
 import requests
 
-from models.child import ChildModelResponse
+from models.child import ChildModelResponse, ChildModel
 from models.group import GroupModel
 from models.organizations import OrganizationModel
 from models.user import UserModel
@@ -58,7 +58,7 @@ def get_parents_by_child_id(
     response = requests.get(
         api_settings.get_parents_by_child_url(child_id=child_id)
     ).json()
-    if response is None:
+    if not response:
         return response
     if len(response) == 1:
         return UserModel.model_validate(response[0]), None
