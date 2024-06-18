@@ -31,8 +31,6 @@ from src.routers.employee import (
     get_employees_for_organization,
     get_employees_organization_names_by_phone,
     get_groups_for_employee,
-    get_user_by_phone,
-    get_user_by_tg_id,
     link_employee_to_group,
     unlink_group_from_employee,
     upsert_employee, get_roles_by_employee,
