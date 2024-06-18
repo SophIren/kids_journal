@@ -2,9 +2,9 @@ import { FormWrapperEdit } from "./FormWrapperEdit";
 import { Checkbox, Input, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Multiselect } from "multiselect-react-dropdown";
-import { ApiRoute } from "../../const";
+import { ApiRoute, testOrganization } from "../../const";
 import { useParams } from "react-router-dom";
-import {childInfo, groupInfo} from "../userForm/UserForm";
+import { childInfo, groupInfo } from "../userForm/UserForm";
 
 type UserData = {
   group: string;
@@ -17,11 +17,6 @@ type UserFormProps = UserData & {
   updateFields: (fields: Partial<UserData>) => void;
 };
 
-const childrenData = [
-  { id: 1, name: "Болтов Егор" },
-  { id: 2, name: "Болтов Егорp" },
-];
-
 export function UserFormEdit({
   group,
   isIndividual,
@@ -29,12 +24,11 @@ export function UserFormEdit({
   date,
   updateFields,
 }: UserFormProps) {
-  const { organization } = useParams();
-  const [options] = useState(childrenData);
-
   const [groups, setGroups] = useState(groupInfo);
+  const [curGroup, setCurGroup] = useState(group);
+
   useEffect(() => {
-    fetch(`${ApiRoute}/organizations/${organization}/groups`, {
+    fetch(`${ApiRoute}/organizations/${testOrganization}/groups`, {
       method: "GET",
       headers: { Accept: "application/json" },
     })
@@ -50,7 +44,12 @@ export function UserFormEdit({
       });
   }, []);
 
-  const [curGroup, setCurGroup] = useState("");
+  useEffect(() => {
+    setCurGroup(group);
+  }, [groups]);
+
+  console.log("date", date, "1");
+
   const handleGroupsName = (e: string) => {
     return groups[Number(e)].name;
   };
@@ -81,7 +80,6 @@ export function UserFormEdit({
       <label>Группа</label>
       <Select
         required
-        placeholder="Выберите группу"
         onClick={(e) => setCurGroup(handleGroupsName(e.currentTarget.value))}
         onChange={(e) =>
           updateFields({ group: handleGroupsName(e.target.value) })
@@ -89,16 +87,21 @@ export function UserFormEdit({
         style={{
           background: "white",
         }}
+        variant="filled"
+        value={curGroup}
       >
-        {groups.map((groupCur, index) => (
-          <option value={index}>{groupCur.name}</option>
-        ))}
+        {groups.map((groupCur, index) => {
+          return <option value={groupCur.name}>{groupCur.name}</option>;
+        })}
       </Select>
       <label>Дата</label>
       <Input
         required
         type="datetime-local"
+        name={date}
         value={date}
+        variant="filled"
+        defaultValue={date}
         onChange={(e) => updateFields({ date: e.target.value })}
         style={{
           background: "white",

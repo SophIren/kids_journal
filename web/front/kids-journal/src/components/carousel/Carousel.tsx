@@ -8,11 +8,12 @@ import React, { useEffect, useState } from "react";
 import { ApiRoute, infoGroups, testOrganization } from "../../const";
 import { Link } from "react-router-dom";
 import { ModalActive } from "../modalActive/ModalActive";
-import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
+import { useAppDispatch, useAppSelector } from "../../hooks/useAppDispatch";
 import { fetchGroupsAction } from "../../store/api-actions";
 import { store } from "../../store";
-import {getAllData} from "../../features/groupsSlice";
-import {LoaderScreen} from "../../pages/loading-screen/LoaderScreen";
+import { getAllData } from "../../features/groupsSlice";
+import { LoaderScreen } from "../../pages/loading-screen/LoaderScreen";
+import { ButtonMain } from "../button/ButtonMain";
 
 export type CarouselProps = {
   organization: string | undefined;
@@ -32,8 +33,9 @@ type lessonInfoProps = [
   {
     schedule_id: string;
     presentation_id: string;
+    presentation_name: string;
     child_ids: string[];
-    date_day: string;
+    start_lesson: string;
     is_for_child: boolean;
   },
 ];
@@ -42,8 +44,9 @@ export const lessonInfo: lessonInfoProps = [
   {
     schedule_id: "",
     presentation_id: "",
+    presentation_name: "",
     child_ids: [""],
-    date_day: "",
+    start_lesson: "",
     is_for_child: false,
   },
 ];
@@ -54,6 +57,7 @@ export const Carousel = ({ organization, currentDate }: CarouselProps) => {
 
   const [currentActivity, setCurrentActivity] = useState(lessonInfo);
   const [currentGroup, setCurrentGroup] = useState("");
+  const [currentGroupId, setCurrentGroupId] = useState("");
   const [currentTeacher, setCurrentTeacher] = useState("");
 
   const currentCarousel = carousels.filter((carousel) => {
@@ -76,8 +80,8 @@ export const Carousel = ({ organization, currentDate }: CarouselProps) => {
   const groups = data.groups;
 
   useEffect(() => {
-    dispatch(getAllData())
-  }, [])
+    dispatch(getAllData());
+  }, []);
 
   useEffect(() => {
     setAllInfo([]);
@@ -86,32 +90,30 @@ export const Carousel = ({ organization, currentDate }: CarouselProps) => {
   useEffect(() => {
     for (let i = 0; i < groups.length; i++) {
       if (groups[i].group_id !== "") {
-        console.log(groups[i].group_id);
         fetch(
-            `${ApiRoute}/lessons/${groups[i].group_id}?date_day=${resultData}`,
-            {
-              method: "GET",
-              headers: { Accept: "application/json" },
-            },
+          `${ApiRoute}/lessons/${groups[i].group_id}?date_day=${resultData}`,
+          {
+            method: "GET",
+            headers: { Accept: "application/json" },
+          },
         )
-            .then((response) => {
-              if (response.status === 200 || response.status === 201) {
-                return response;
-              }
-              throw new Error();
-            })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.length !== 0)
-                setAllInfo((allInfo) => [
-                  ...allInfo,
-                  { group: groups[i].group_id, lessons: data },
-                ]);
-            });
+          .then((response) => {
+            if (response.status === 200 || response.status === 201) {
+              return response;
+            }
+            throw new Error();
+          })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length !== 0)
+              setAllInfo((allInfo) => [
+                ...allInfo,
+                { group: groups[i].group_id, lessons: data },
+              ]);
+          });
       }
     }
   }, [groups, currentDate]);
-
 
   // const [groups, setGroups] = useState(groupInfo);
   // useEffect(() => {
@@ -131,6 +133,7 @@ export const Carousel = ({ organization, currentDate }: CarouselProps) => {
   //     });
   // }, []);
 
+  console.log("allInfo", allInfo);
 
   const formatter = new Intl.DateTimeFormat("en-US", {
     day: "2-digit",
@@ -184,9 +187,10 @@ export const Carousel = ({ organization, currentDate }: CarouselProps) => {
 
   const formatData = currentDate.toLocaleDateString();
 
-  const doDo = (action: lessonInfoProps, group: string) => {
+  const doDo = (action: lessonInfoProps, group: string, group_id: string) => {
     setCurrentActivity(action);
     setCurrentGroup(group);
+    setCurrentGroupId(group_id);
   };
 
   const handleModalOpen = () => {
@@ -195,6 +199,27 @@ export const Carousel = ({ organization, currentDate }: CarouselProps) => {
 
   const handleModalClose = () => {
     setIsOpenModal(false);
+  };
+
+  const [valuePresentation, getPresentation] = useState();
+
+  const getCurrentLesson = (lesson: string) => {
+    console.log("lesson", lesson);
+    fetch(`${ApiRoute}/organizations/${testOrganization}/subject//${lesson}`, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          return response;
+        }
+        throw new Error();
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.length !== 0) getPresentation(data);
+      });
+    return valuePresentation;
   };
 
   return (
@@ -207,49 +232,88 @@ export const Carousel = ({ organization, currentDate }: CarouselProps) => {
                 <div className="carousel_box-name">Группа {group.name}</div>
                 <div className="carousel_box-age">{group.age_range}</div>
               </div>
-              {allInfo.filter((el) => {
-                return el.group === group.name;
-              }).length !== 0 && (
-                <div className="carousel_box-content">
-                  {allInfo
-                    .filter((el) => {
-                      return el.group === group.name;
-                    })
-                    .map((action) =>
-                      action.lessons.map((lesson) => (
-                        <Link
-                          className="carousel_box-container"
-                          to={""}
-                          onClick={handleModalOpen}
-                        >
-                          <div
-                            onClick={() => doDo([lesson], group.name)}
-                            className={`carousel_box-action ${
-                              lesson.is_for_child ? "isOrange" : "isGreen"
-                            }`}
-                          >
-                            <div className="carousel_action-info">
-                              <div className="carousel_action-topic">
-                                {lesson.presentation_id}
-                              </div>
-                              <div className="carousel_action-time">
-                                {lesson.date_day.split("T")[1].slice(0, 5)}
-                              </div>
-                            </div>
-                            <div className="carousel_action-children">
-                              {lesson.is_for_child &&
-                                `Дети: ${lesson.child_ids[0]} ${
-                                  lesson.child_ids.length > 1
-                                    ? `и еще ${lesson.child_ids.length - 1}`
-                                    : ""
+              <div className="carousel_box-schedule">
+                {allInfo.filter((el) => {
+                  return el.group === group.group_id;
+                }).length !== 0 && (
+                  <div className="carousel_box-content">
+                    {allInfo
+                      .filter((el) => {
+                        return el.group === group.group_id;
+                      })
+                      .map((action) =>
+                        action.lessons.map((lesson) => {
+                          // const currentLesson = getCurrentLesson(
+                          //   lesson.presentation_id,
+                          // );
+                          return (
+                            <Link
+                              className="carousel_box-container"
+                              to={""}
+                              onClick={handleModalOpen}
+                            >
+                              <div
+                                onClick={() =>
+                                  doDo([lesson], group.name, group.group_id)
+                                }
+                                className={`carousel_box-action ${
+                                  lesson.is_for_child ? "isOrange" : "isGreen"
                                 }`}
-                            </div>
-                          </div>
-                        </Link>
-                      )),
-                    )}
-                </div>
-              )}
+                              >
+                                <div className="carousel_action-info">
+                                  <div className="carousel_action-topic">
+                                    {lesson.presentation_id}
+                                  </div>
+                                  <div className="carousel_action-time">
+                                    {lesson.start_lesson
+                                      .split("T")[1]
+                                      ?.split(":")
+                                      .slice(0, -1)
+                                      .join(":")}
+                                  </div>
+                                </div>
+                                <div className="carousel_action-children">
+                                  {lesson.is_for_child &&
+                                    `Дети: ${lesson.child_ids[0]} ${
+                                      lesson.child_ids.length > 1
+                                        ? `и еще ${lesson.child_ids.length - 1}`
+                                        : ""
+                                    }`}
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        }),
+                      )}
+                  </div>
+                )}
+              </div>
+              <div className="carousel_box-button">
+                <ButtonMain
+                  height="40px"
+                  width="250px"
+                  linkButton={``}
+                  background="white"
+                  borderColor="#FFBF85"
+                  color="#A65000"
+                >
+                  Выставить посещаемость
+                  <svg
+                    width="18"
+                    height="10"
+                    viewBox="0 0 18 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12.7071 9L16 5.70711C16.3905 5.31658 16.3905 4.68342 16 4.29289L12.7071 1M15.7071 5L1.70712 5"
+                      stroke="#A65000"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </ButtonMain>
+              </div>
             </div>
           ))}
         </Slider>
@@ -259,6 +323,7 @@ export const Carousel = ({ organization, currentDate }: CarouselProps) => {
         onCloseModal={handleModalClose}
         currentActivity={currentActivity}
         currentGroup={currentGroup}
+        currentGroupId={currentGroupId}
       />
     </>
   );

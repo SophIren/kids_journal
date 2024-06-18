@@ -6,6 +6,7 @@
   font-size: 14px;
   font-weight: 400;
   border-radius: 8px;
+  border: 1px solid #a65000;
   background-color: var(--color-brown_main);
   color: #ffffff;
   padding: 10px 20px;

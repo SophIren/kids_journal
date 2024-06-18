@@ -6,11 +6,11 @@ import { GroupInfo } from "../../components/groupInfo/GroupInfo";
 type GroupsInfoPageProps = {};
 
 function GroupInfoPage({}: GroupsInfoPageProps): JSX.Element {
-  const { organization, groupId } = useParams();
+  const { organization, groupName, groupId } = useParams();
   return (
     <div>
       <Header />
-      <GroupInfo organization={organization} groupId={groupId}/>
+      <GroupInfo organization={organization} groupName={groupName} groupId={groupId}/>
     </div>
   );
 }

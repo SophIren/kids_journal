@@ -98,6 +98,8 @@ export function DescriptionFormEdit({
         style={{
           background: "white",
         }}
+        name={topic}
+        variant="filled"
       >
         {presentations?.map((presentation, index) => (
           <option value={index}>{presentation.name}</option>

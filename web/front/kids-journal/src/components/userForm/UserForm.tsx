@@ -42,10 +42,17 @@ export const childrenInfo = [
   },
 ];
 
-const childrenData = [
-  { id: 1, name: "Болтов Егор" },
-  { id: 2, name: "Болтов Егорp" },
-];
+export const child = {
+  child_id: "",
+  first_name: "",
+  middle_name: "",
+  last_name: "",
+  birth_date: "",
+  start_education_date: "",
+  end_education_date: "",
+  gender: "",
+  avatar_url: "",
+};
 
 export function UserForm({
   group,
@@ -55,7 +62,6 @@ export function UserForm({
   updateFields,
 }: UserFormProps) {
   const { organization } = useParams();
-  const [options] = useState(childrenData);
 
   const [groups, setGroups] = useState(groupInfo);
   useEffect(() => {
@@ -80,7 +86,7 @@ export function UserForm({
     return groups[Number(e)].group_id;
   };
 
-  const [chilgren, setChilgren] = useState(childInfo);
+  const [chilgren, setChilgren] = useState([child]);
 
   useEffect(() => {
     if (curGroup !== "") {

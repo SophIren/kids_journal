@@ -10,6 +10,15 @@
   padding-right: 32px;
 }
 
+.groups__label {
+  font-family: "Inter", sans-serif;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  width: 278px;
+  justify-content: space-between;
+}
+
 .groups_search-input {
   width: 272px;
   height: 37px;
@@ -46,7 +55,19 @@
 }
 
 .groups-title_teach {
-  width: 60%;
+  width: 55%;
+}
+
+.groups-item_icon {
+  width: 2%;
+}
+
+.groups-item_icon-edit,
+.groups-item_icon-delete {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 .groups-title_label,

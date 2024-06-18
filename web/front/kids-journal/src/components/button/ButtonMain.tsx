@@ -11,6 +11,8 @@ export interface ButtonProps extends DOMAttributes<HTMLButtonElement> {
   typeButton?: ButtonType;
   onClick?: (event: React.MouseEvent) => void;
   background?: string;
+  borderColor?: string;
+  color?: string;
   height: string;
   width: string;
   linkButton: string;
@@ -26,6 +28,8 @@ export const ButtonMain: React.FC<ButtonProps> = ({
   width,
   linkButton,
   background,
+  borderColor,
+  color,
   ...props
 }) => {
   return (
@@ -41,6 +45,8 @@ export const ButtonMain: React.FC<ButtonProps> = ({
           height: `${height}`,
           width: `${width}`,
           background: `${background}`,
+          borderColor: `${borderColor}`,
+          color: `${color}`,
         }}
         {...props}
       >

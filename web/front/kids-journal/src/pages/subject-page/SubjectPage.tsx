@@ -69,7 +69,7 @@ export const SubjectPage = () => {
 
   useEffect(() => {
     if (curSubject !== "") {
-      setPresentations(infoTopic)
+      setPresentations(infoTopic);
       fetch(`${ApiRoute}/subjects/${curSubject}/presentations`, {
         method: "GET",
         headers: { Accept: "application/json" },
@@ -87,10 +87,19 @@ export const SubjectPage = () => {
     }
   }, [curSubject]);
 
-
   const filteredSubject = subjects.filter((curSub) => {
     return curSub.name.toLowerCase().includes(value.toLowerCase());
   });
+
+  const handleDelete = async (presentation_id: string) => {
+    await fetch(`${ApiRoute}/presentation/${presentation_id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   return (
     <>
@@ -143,6 +152,7 @@ export const SubjectPage = () => {
                       <td className="subject-title_name">Название темы</td>
                       <td className="subject-title_age">Возраст</td>
                       <td className="subject-description">Описание</td>
+                      <td className="employees-item_icon"></td>
                     </tr>
                   </thead>
                   <tbody>
@@ -157,6 +167,27 @@ export const SubjectPage = () => {
                         <td className="subject-item_description">
                           {currentTopic.description}
                         </td>
+                        <td className="employees-item_icon">
+                          <button
+                            className="employees-item_icon-delete"
+                            onClick={() => handleDelete(currentTopic.presentation_id)}
+                          >
+                            <svg
+                              width="18"
+                              height="18"
+                              viewBox="0 0 18 18"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M5.60679 1.67648H5.42822C5.52644 1.67648 5.60679 1.59612 5.60679 1.49791V1.67648H12.3925V1.49791C12.3925 1.59612 12.4729 1.67648 12.5711 1.67648H12.3925V3.28362H13.9997V1.49791C13.9997 0.709961 13.359 0.0693359 12.5711 0.0693359H5.42822C4.64028 0.0693359 3.99965 0.709961 3.99965 1.49791V3.28362H5.60679V1.67648ZM16.8568 3.28362H1.14251C0.747419 3.28362 0.428223 3.60282 0.428223 3.99791V4.71219C0.428223 4.81041 0.50858 4.89077 0.606794 4.89077H1.95501L2.50635 16.5649C2.54206 17.326 3.17153 17.9265 3.93269 17.9265H14.0666C14.83 17.9265 15.4572 17.3283 15.493 16.5649L16.0443 4.89077H17.3925C17.4907 4.89077 17.5711 4.81041 17.5711 4.71219V3.99791C17.5711 3.60282 17.2519 3.28362 16.8568 3.28362ZM13.8947 16.3193H4.10456L3.56438 4.89077H14.4349L13.8947 16.3193Z"
+                                fill="black"
+                                fill-opacity="0.85"
+                              />
+                            </svg>
+                          </button>
+                        </td>
+                        <td></td>
                       </tr>
                     ))}
                   </tbody>

@@ -6,11 +6,11 @@ import {useParams} from "react-router-dom";
 type AddChildPageProps = {};
 
 function AddChildPage({}: AddChildPageProps): JSX.Element {
-    const { organization, groupId } = useParams();
+    const { organization, groupName, groupId } = useParams();
     return (
         <div>
             <Header />
-            <AddChild organization={organization} groupId={groupId}/>
+            <AddChild organization={organization} groupName={groupName} groupId={groupId}/>
         </div>
     );
 }

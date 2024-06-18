@@ -71,20 +71,20 @@ export const Modal = ({
           <div className="Modal_text">
             <div className="Modal_text-label">Группа {groupId}</div>
             <div className="Modal_text-parent">
-              {currChild[1].name !== " " && (
+              {currChild[1].first_name !== " " && (
                 <>
                   <div className="Modal_text-parent_name">
-                    Родитель: {currChild[1].name}
+                    Родитель: {currChild[1].first_name}
                   </div>
                   <div className="Modal_text-parent_number">
                     {currChild[1].phone_number}
                   </div>
                 </>
               )}
-              {currChild[2].name !== " " && (
+              {currChild[2].first_name !== " " && (
                   <>
                     <div className="Modal_text-parent_name">
-                      Родитель: {currChild[2].name}
+                      Родитель: {currChild[2].first_name}
                     </div>
                     <div className="Modal_text-parent_number">
                       {currChild[2].phone_number}

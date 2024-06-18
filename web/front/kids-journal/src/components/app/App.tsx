@@ -22,6 +22,9 @@ import ProgressPage from "../../pages/progress-page/ProgressPage";
 import ChildProfile from "../../pages/childProfile-page/ChildProfile";
 import { useAppSelector } from "../../hooks/useAppDispatch";
 import { LoaderScreen } from "../../pages/loading-screen/LoaderScreen";
+import {EditGroups} from "../EditGroups/EditGroups";
+import EditGroupsPage from "../../pages/editGroups-page/EditGroupsPage";
+import EditEmployeePage from "../../pages/editEmployee-page/EditEmployeePage";
 
 function App() {
   // const isDataLoading = useAppSelector((state) => state.isDataLoading);
@@ -41,7 +44,7 @@ function App() {
             path={`:organization${AppRoute.Groups}`}
             element={<GroupsPage />}
           />
-          <Route path={`:organization/:groupId`} element={<GroupInfoPage />} />
+          <Route path={`:organization/:groupName/:groupId`} element={<GroupInfoPage />} />
           <Route
             path={`:organization${AppRoute.Employees}`}
             element={<EmployeesPage />}
@@ -54,12 +57,23 @@ function App() {
             path={`:organization${AppRoute.CreateGroups}`}
             element={<CreateGroupsPage />}
           />
+
+          <Route
+              path={`:organization${AppRoute.EditGroups}/:group_id`}
+              element={<EditGroupsPage />}
+          />
+
+          <Route
+              path={`:organization${AppRoute.EditEmployee}/:user_id`}
+              element={<EditEmployeePage />}
+          />
+
           <Route
             path={`:organization${AppRoute.CreateEmployees}`}
             element={<CreateEmployeesPage />}
           />
           <Route
-            path={`:organization/:groupId${AppRoute.AddChild}`}
+            path={`:organization/:groupName/:groupId${AppRoute.AddChild}`}
             element={<AddChildPage />}
           />
 
@@ -79,7 +93,7 @@ function App() {
           />
 
           <Route
-            path={`:organization/:group/:lesson/:date/:schedule_id`}
+            path={`:organization/:group/:group_id/:lesson/:date/:schedule_id`}
             element={<EditActivityPage />}
           />
 
@@ -89,7 +103,7 @@ function App() {
           />
 
           <Route
-            path={`:organization/:group/:childName`}
+            path={`:organization/:group/:childName/profile`}
             element={<ChildProfile />}
           />
 

@@ -79,3 +79,7 @@
 .progress__table tbody tr:hover {
     background-color: var(--color-lightgrey);
 }
+
+.progress-item_grade-check{
+
+}

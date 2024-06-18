@@ -16,12 +16,13 @@ type lessonInfoProps = [
     schedule_id: string;
     presentation_id: string;
     child_ids: string[];
-    date_day: string;
+    start_lesson: string;
     is_for_child: boolean;
   },
 ];
 
 type TModalProps = {
+  currentGroupId: string;
   topic?: string;
   children?: ReactNode;
   className?: string;
@@ -34,6 +35,7 @@ type TModalProps = {
 };
 
 export const ModalActive = ({
+  currentGroupId,
   currentGroup,
   currentActivity,
   className,
@@ -49,6 +51,16 @@ export const ModalActive = ({
   };
   const [styles, setStyles] = useState({});
   const { organization } = useParams();
+
+  const handleDelete = async (schedule_id: string) => {
+    await fetch(`${ApiRoute}/lessons/${schedule_id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   useEffect(() => {
     const scrollbarWidth =
@@ -69,6 +81,11 @@ export const ModalActive = ({
     };
   }, [isOpen]);
 
+  console.log(
+    "currentActivity[0].presentation_id",
+    currentActivity[0].presentation_id,
+  );
+
   return (
     <ReactModal
       center
@@ -81,10 +98,10 @@ export const ModalActive = ({
       <div className="Modal">
         <div className="Modal_header">
           <div className="Modal_header-subject_name">
-            {currentActivity[0].schedule_id}
+            {currentActivity[0].presentation_id}
           </div>
           <div className="Modal_header-data">
-            {currentActivity[0].date_day.split("T")[0]}
+            {currentActivity[0].start_lesson.split("T")[0]}
           </div>
         </div>
         <div className="Modal_content">
@@ -101,7 +118,7 @@ export const ModalActive = ({
           <div className="Modal_content-item">
             <div className="Modal_content-time">Время:</div>
             <div className="Modal_content-information">
-              {currentActivity[0].date_day
+              {currentActivity[0].start_lesson
                 .split("T")[1]
                 ?.split(":")
                 .slice(0, -1)
@@ -127,27 +144,34 @@ export const ModalActive = ({
           <div>
             <ButtonMain
               height="40px"
-              width="168px"
-              linkButton={`/${organization}/${currentGroup}/${currentActivity[0].schedule_id}${AppRoute.Progress}`}
+              width="190px"
+              linkButton={`/${organization}/${currentGroupId}/${currentActivity[0].presentation_id}${AppRoute.Progress}`}
             >
-              Выставить оценки
+              Выставить прогресс
             </ButtonMain>
           </div>
           <div>
             <ButtonMain
               height="40px"
               width="145px"
-              linkButton={`/${organization}/${currentGroup}/${
-                currentActivity[0].schedule_id
-              }/${currentActivity[0].date_day.split("T")[0]}/${
-                currentActivity[0].schedule_id
-              }`}
+              background="white"
+              borderColor="#FFBF85"
+              color="#A65000"
+              linkButton={`/${organization}/${currentGroup}/${currentGroupId}/${currentActivity[0].schedule_id}/${currentActivity[0].start_lesson}/${currentActivity[0].schedule_id}`}
             >
               Редактировать
             </ButtonMain>
           </div>
           <div>
-            <ButtonMain height="40px" width="98px" linkButton={``}>
+            <ButtonMain
+              height="40px"
+              width="98px"
+              linkButton={``}
+              background="white"
+              borderColor="#FFBF85"
+              color="#A65000"
+              onClick={() => handleDelete(currentActivity[0].schedule_id)}
+            >
               Удалить
             </ButtonMain>
           </div>

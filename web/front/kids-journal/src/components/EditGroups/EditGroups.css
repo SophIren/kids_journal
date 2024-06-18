@@ -1,0 +1,81 @@
+.creat__form {
+  display: flex;
+}
+
+.creat__text {
+  font-family: "Inter", sans-serif;
+  font-size: 32px;
+  padding-top: 122px;
+  padding-left: 40px;
+}
+
+.creat__form-select {
+  width: 361px;
+  height: 40px;
+  padding-left: 16px;
+
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+.creat__form-button {
+  margin-top: 26px;
+  margin-left: 40px;
+}
+
+
+.create-group-main__container {
+  position: relative;
+  padding: 2rem;
+  margin: auto;
+  border-radius: 0.5rem;
+  max-width: max-content;
+}
+
+.create-group__text {
+  font-family: "Inter", sans-serif;
+  font-size: 32px;
+  font-weight: 450;
+  padding-top: 32px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.create-group__form {
+  display: flex;
+  justify-content: center;
+  width: 520px;
+  height: 426px;
+  margin: auto;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background: white;
+}
+
+.create-group__container {
+  overflow: auto;
+}
+
+.create-group__form-button {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.create-group__form-items {
+  margin-bottom: 24px;
+}
+
+.create-group__form-items_name {
+  font-family: "Inter", sans-serif;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 8px;
+}
+
+.create-group {
+  width: 100%;
+  margin: 20px;
+}

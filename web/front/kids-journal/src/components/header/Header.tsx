@@ -113,7 +113,7 @@ export const Header = () => {
         <ul className="header__nav-list">
           <li className="header__nav-item">
             <Link
-                to={`/${organization}/activity`}
+                to={`/${organization}${AppRoute.Subject}`}
                 className="nav-links"
                 onClick={closeMobileMenu}
             >

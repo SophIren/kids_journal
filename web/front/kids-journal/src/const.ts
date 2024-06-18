@@ -12,12 +12,18 @@ export const AppRoute = {
   Progress: "/progress",
   CreateActivity: "/createActivity",
   CreateGroups: "/createGroups",
+  EditGroups: "/editGroups",
+  EditEmployee: "/editEmployee",
   CreateEmployees: "/createEmployees",
   CreateSubject: "/createSubject",
   CreateOrganization: "/createOrganization",
   AddChild: "/addChild",
   Error: "/*",
 };
+
+export const skill_level_id_no = "f643625b-a43d-4e45-bc6e-85379b8d3e05";
+export const skill_level_id_yes = "cc8442dc-ffbf-4cd8-ae63-cb160e72ec12";
+
 
 export const TIMEOUT_SHOW_ERROR = 2000;
 

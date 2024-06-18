@@ -30,6 +30,7 @@ const INITIAL_DATA: FormData = {
 export default function CreateActivityPage() {
   const { organization } = useParams();
   const [data, setData] = useState(INITIAL_DATA);
+  console.log("data", data);
   function updateFields(fields: Partial<FormData>) {
     setData((prev) => {
       return { ...prev, ...fields };
@@ -51,18 +52,15 @@ export default function CreateActivityPage() {
       const headers = new Headers();
       headers.append("Content-Type", "application/json");
 
-      console.log(data.topic)
-
       let lesson = JSON.stringify({
-        group_id: data.group,
-        subject_id: data.subject,
-        presentation_id: data.topic,
-        start_lesson: data.date,
+        schedule: {
+          presentation_id: data.topic,
+          start_lesson: data.date,
+        },
         child_ids: data.listChildren.map(
           (child: { name: string; id: string }) => child.name,
         ),
       });
-      console.log(lesson);
 
       let requestOptions = {
         method: "POST",
@@ -70,7 +68,9 @@ export default function CreateActivityPage() {
         body: lesson,
       };
 
-      fetch(ApiRoute + `/lessons`, requestOptions);
+      console.log("lesson", lesson);
+
+      fetch(ApiRoute + `/lessons?group_id=${data.group}`, requestOptions);
     }
     navigate(`/${organization}${AppRoute.Main}`);
   }

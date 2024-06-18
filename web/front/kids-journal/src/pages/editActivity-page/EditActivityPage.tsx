@@ -4,8 +4,8 @@ import { Header } from "../../components/header/Header";
 import "./EditActivityPage.css";
 import { ApiRoute, AppRoute } from "../../const";
 import { useNavigate, useParams } from "react-router-dom";
-import {UserFormEdit} from "../../components/userFormEdit/UserFormEdit";
-import {DescriptionFormEdit} from "../../components/userFormEdit/DescriptionFormEdit";
+import { UserFormEdit } from "../../components/userFormEdit/UserFormEdit";
+import { DescriptionFormEdit } from "../../components/userFormEdit/DescriptionFormEdit";
 
 type FormData = {
   group: string;
@@ -33,8 +33,8 @@ type lessonInfoProps = [
     subject_name: string;
     presentation_id: string;
     group_name: string;
-    child_names: string[];
-    date_day: string;
+    child_ids: [];
+    start_lesson: string;
     teacher_id: string;
     description: string;
     is_for_child: boolean;
@@ -48,15 +48,17 @@ export const lessonInfo: lessonInfoProps = [
     presentation_id: "",
     group_name: "",
     teacher_id: "",
-    child_names: [""],
-    date_day: "",
+    child_ids: [],
+    start_lesson: "",
     description: "",
     is_for_child: false,
   },
 ];
 
 export default function EditActivityPage() {
-  const { organization, group, lesson, date, schedule_id } = useParams();
+  const { organization, group, group_id, lesson, date, schedule_id } =
+    useParams();
+  console.log(organization, group, lesson, date, schedule_id);
   const [curdata, setCurdata] = useState(INITIAL_DATA);
   function updateFields(fields: Partial<FormData>) {
     setCurdata((prev) => {
@@ -67,7 +69,7 @@ export default function EditActivityPage() {
   const [allInfo, setAllInfo] = useState<lessonInfoProps>(lessonInfo);
 
   useEffect(() => {
-    fetch(`${ApiRoute}/lessons/${group}?date_day=${date}`, {
+    fetch(`${ApiRoute}/lessons/${group_id}?date_day=${date?.split("T")[0]}`, {
       method: "GET",
       headers: { Accept: "application/json" },
     })
@@ -79,10 +81,31 @@ export default function EditActivityPage() {
       })
       .then((response) => response.json())
       .then((data) => {
-        if (data.length !== 0 && group !== undefined)
+        if (data.length !== 0 && group !== undefined) {
           setAllInfo(data);
+        }
       });
   }, [group]);
+
+  useEffect(() => {
+    updateFields({
+      isIndividual: allInfo[0].is_for_child,
+      date: allInfo[0].start_lesson,
+      listChildren: allInfo[0].child_ids,
+      topic: allInfo[0].presentation_id,
+      group: group,
+    });
+    console.log(
+      "allInfo[0].start_lesson",
+      allInfo,
+      allInfo[0].start_lesson,
+      allInfo[0].presentation_id,
+      allInfo[0].is_for_child,
+    );
+  }, [allInfo]);
+
+  console.log("allInfo11", allInfo);
+  console.log("1", curdata);
 
   const { steps, currentStepIndex, step, isFirstStep, back, next, isLastStep } =
     useMultistepForm([
@@ -102,15 +125,14 @@ export default function EditActivityPage() {
       console.log(curdata.topic);
 
       let lesson = JSON.stringify({
-        schedule_id: schedule_id,
-        group_id: curdata.group,
-        subject_id: curdata.subject,
-        presentation_id: curdata.topic,
-        start_lesson: curdata.date,
-        child_id: curdata.listChildren.map(
+        schedule: {
+          schedule_id: schedule_id,
+          presentation_id: curdata.topic,
+          start_lesson: curdata.date,
+        },
+        child_ids: curdata.listChildren?.map(
           (child: { name: string; id: string }) => child.name,
         ),
-        description: curdata.description,
       });
 
       let requestOptions = {
@@ -119,7 +141,7 @@ export default function EditActivityPage() {
         body: lesson,
       };
 
-      fetch(ApiRoute + `/lessons`, requestOptions);
+      fetch(ApiRoute + `/lessons?group_id=${curdata.group}`, requestOptions);
     }
     navigate(`/${organization}${AppRoute.Main}`);
   }

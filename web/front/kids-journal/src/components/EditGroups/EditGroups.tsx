@@ -1,18 +1,13 @@
-import "./CreateGroups.css";
-import React, {ChangeEventHandler, useEffect, useState} from "react";
-import {
-  Button,
-  CloseButton,
-  Grid,
-  GridItem,
-  Input,
-  Select,
-} from "@chakra-ui/react";
+import "./EditGroups.css";
+import React, { ChangeEventHandler, useEffect, useState } from "react";
+import { Input, Select } from "@chakra-ui/react";
 import { ButtonMain } from "../button/ButtonMain";
-import {ApiRoute, AppRoute, hoho, testOrganization} from "../../const";
-import {employeeInfo} from "../employees/Employees";
-import {useAppDispatch, useAppSelector} from "../../hooks/useAppDispatch";
-import {postAllData, postGroup} from "../../features/groupsSlice";
+import { ApiRoute, AppRoute, hoho, testOrganization } from "../../const";
+import { employeeInfo } from "../employees/Employees";
+import { useAppDispatch, useAppSelector } from "../../hooks/useAppDispatch";
+import { postAllData, postGroup } from "../../features/groupsSlice";
+import { useParams } from "react-router-dom";
+import { GROUP } from "../../types/group";
 
 const optionsAge = [
   { age: "0-3", value: 1 },
@@ -24,75 +19,74 @@ type CreateGroupsProps = {
   organization: string | undefined;
 };
 
-export const CreateGroups = ({ organization }: CreateGroupsProps) => {
-  const data1 = useAppSelector((state) => {
-    return state.groups;
-  });
-  console.log("data1", data1)
+export const EditGroups = ({ organization }: CreateGroupsProps) => {
+  const { group_id } = useParams();
 
-  const [valueAge, setValueAge] = useState("");
   const [valueTeach, setValueTeach] = useState("");
   const [valueName, setNameInput] = useState("");
+  const [valueAge, setValueAge] = useState("");
 
-  const childTemplate = {
-    firstNameChild: "",
-    surnameChild: "",
-    dataChild: "",
-    firstNameParent: "",
-    surnameParent: "",
-    telParent: "",
-  };
-
-  const [children, setChildren] = useState([childTemplate]);
-  const addChild = () => {
-    setChildren([...children, childTemplate]);
-  };
-
-  const onChangeChild = (e: any, index: number) => {
-    const updatedChildren = children.map((child, i) =>
-      index == i
-        ? Object.assign(child, { [e.target.name]: e.target.value })
-        : child,
-    );
-    setChildren(updatedChildren);
-  };
-
-  const removeChild = (index: number) => {
-    const filteredChildren = [...children];
-    filteredChildren.splice(index, 1);
-    setChildren(filteredChildren);
-  };
-
+  const [editGroup, setEditGroup] = useState(GROUP);
   const [employees, setEmployees] = useState(employeeInfo);
+
+  useEffect(() => {
+    console.log("group_id", group_id);
+    fetch(`${ApiRoute}/groups/${group_id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          return response;
+        }
+        throw new Error();
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        setEditGroup(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    setNameInput(editGroup.name);
+    setValueAge(editGroup.age_range);
+  }, [editGroup]);
+
+  console.log(valueName, valueAge);
+
   useEffect(() => {
     fetch(`${ApiRoute}/organizations/${testOrganization}/employee`, {
       method: "GET",
       headers: { Accept: "application/json" },
     })
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) {
-            return response;
-          }
-          throw new Error();
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          setEmployees(data);
-        });
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          return response;
+        }
+        throw new Error();
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        setEmployees(data);
+      });
   }, []);
-
 
   const createGroup = () => {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
 
     const value = {
+      group_id: group_id,
       organization_id: testOrganization,
-      age_range: optionsAge[Number(valueAge) - 1].age,
+      age_range: valueAge,
       name: valueName,
-    }
+    };
 
-    const body = JSON.stringify(value)
+    const body = JSON.stringify(value);
 
     const requestOptions = {
       method: "POST",
@@ -102,8 +96,8 @@ export const CreateGroups = ({ organization }: CreateGroupsProps) => {
 
     fetch(ApiRoute + "/groups", requestOptions);
 
-    fetch(ApiRoute + ``)
-    console.log(employees[Number(valueTeach)])
+    fetch(ApiRoute + ``);
+    console.log(employees[Number(valueTeach)]);
   };
 
   return (
@@ -124,9 +118,11 @@ export const CreateGroups = ({ organization }: CreateGroupsProps) => {
                 style={{
                   background: "white",
                 }}
+                variant="filled"
+                value={valueAge}
               >
                 {optionsAge.map((option) => (
-                  <option value={option.value}>{option.age}</option>
+                  <option value={option.age}>{option.age}</option>
                 ))}
               </Select>
             </div>
@@ -145,6 +141,8 @@ export const CreateGroups = ({ organization }: CreateGroupsProps) => {
                 style={{
                   background: "white",
                 }}
+                variant="filled"
+                value={valueName}
               />
             </div>
           </div>
@@ -162,8 +160,8 @@ export const CreateGroups = ({ organization }: CreateGroupsProps) => {
                   background: "white",
                 }}
               >
-                {employees.map((employee, index) => (
-                    <option value={index}>{employee.name}</option>
+                {employees?.map((employee, index) => (
+                  <option value={employee.name}>{employee.name}</option>
                 ))}
               </Select>
             </div>
