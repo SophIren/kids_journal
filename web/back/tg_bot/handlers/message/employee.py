@@ -156,8 +156,10 @@ async def handle_send_picture(update: Update, context: ContextTypes.DEFAULT_TYPE
     if update.message.photo:
         file = await update.message.photo[-1].get_file()
         picture = await file.download_as_bytearray()
-        await context.bot.send_photo(parent_1.tg_user_id, BytesIO(picture))
-        await context.bot.send_photo(parent_2.tg_user_id, BytesIO(picture))
+        if parent_1:
+            await context.bot.send_photo(parent_1.tg_user_id, BytesIO(picture))
+        if parent_2:
+            await context.bot.send_photo(parent_2.tg_user_id, BytesIO(picture))
 
     await update.message.reply_text(
         SUCCESSFULLY_SENT,

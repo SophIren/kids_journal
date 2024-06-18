@@ -14,7 +14,7 @@ async def upsert_lesson(
     group_id: str | None = None,
     child_ids: list[str] | None = None,
     schedule_service=Depends(create_schedule_service),
-) -> None:
+) -> ScheduleModel:
     schedule_service.upsert_schedule(schedule)
     if child_ids:
         schedule_service.remove_all_child_pairs(schedule.schedule_id)
@@ -22,6 +22,10 @@ async def upsert_lesson(
     if group_id:
         schedule_service.remove_all_group_pairs(schedule.schedule_id)
         schedule_service.create_group_schedule_pair(schedule.schedule_id, group_id)
+        schedule_service.create_group_schedule_pair(
+            schedule.schedule_id, group_id
+        )
+    return schedule
 
 
 async def get_schedule_for_group(

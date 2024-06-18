@@ -22,7 +22,13 @@ class ChildModel(BaseModel):
 
 class ChildModelResponse(BaseModel):
     child_id: str
-    name: str
-    birth_date: datetime | None = None
+    first_name: str
+    middle_name: str
+    last_name: str
+    birth_date: date | None = None
+
+    @property
+    def name(self) -> str:
+        return f'{self.first_name} {self.last_name}'
     # parent_1: UserModelResponse | None = None
     # parent_2: UserModelResponse | None = None

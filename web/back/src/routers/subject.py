@@ -11,7 +11,7 @@ async def create_subject(
     subject: SubjectModel,
     groups_service: GroupService = Depends(create_group_service),
     subject_service: SubjectService = Depends(create_subject_service),
-) -> None:
+) -> SubjectModel:
     subject_service.create_subject(subject)
     group_ids = [
         str(group.group_id)
@@ -19,6 +19,7 @@ async def create_subject(
     ]
     if group_ids:
         subject_service.create_group_subject_pair(group_ids, str(subject.subject_id))
+    return subject
 
 
 async def get_subject(

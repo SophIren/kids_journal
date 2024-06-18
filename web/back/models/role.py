@@ -10,6 +10,8 @@ from models.utils import CleverBaseModel as BaseModel
 class Roles(StrEnum):
     PARENT = "parent"
     EMPLOYEE = "employee"
+    TEACHER = "teacher"
+    ADMIN = "admin"
     UNKNOWN = "unknown"
 
 

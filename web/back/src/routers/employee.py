@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from uuid import UUID
-
 from fastapi import Depends, Path
 
 import models
@@ -11,15 +9,17 @@ from src.dependencies import create_group_service, create_user_service
 
 async def upsert_employee(
     employee: UserModel,
+    role: str = models.Roles.EMPLOYEE,
     organization_id: str = Path(...),
     user_service=Depends(create_user_service),
     groups_service=Depends(create_group_service),
-) -> None:
+) -> UserModel:
     user_service.upsert_user(employee)
     user_service.link_user_to_organization(
         organization_id=organization_id, user_id=employee.user_id
     )
-    user_service.link_role(user_id=employee.user_id, role=models.Roles.EMPLOYEE)
+    user_service.link_role(user_id=employee.user_id, role=role)
+    return employee
 
 
 async def link_employee_to_group(
@@ -45,20 +45,6 @@ async def get_groups_for_employee(
     return user_service.get_groups_ids_by_teacher(teacher_id=employee_id)
 
 
-async def get_user_by_tg_id(
-    tg_id: str,
-    user_service=Depends(create_user_service),
-) -> UserModel | None:
-    return user_service.get_by_tg_user_id(tg_id)
-
-
-async def get_user_by_phone(
-    phone: str,
-    user_service=Depends(create_user_service),
-) -> UserModel | None:
-    return user_service.get_by_phone(phone)
-
-
 async def get_employees_for_organization(
     organization_id: str,
     employee_service=Depends(create_user_service),
@@ -77,3 +63,10 @@ async def delete_employee(
     employee_id: str, employee_service=Depends(create_user_service)
 ) -> None:
     return employee_service.delete_by_id(employee_id=employee_id)
+
+
+async def get_roles_by_employee(
+    employee_id: str,
+    employee_service=Depends(create_user_service),
+) -> list[str]:
+    return employee_service.get_roles_by_user(employee_id)

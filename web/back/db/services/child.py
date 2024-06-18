@@ -1,8 +1,6 @@
-from typing import Any
-
 import ydb
 
-from db.utils import _format_date_time, _format_date_time_to_date
+from db.utils import _format_date_time_to_date, _convert_ydb_date_to_pydantic
 from models.child import ChildModel
 
 
@@ -80,6 +78,39 @@ class ChildService:
 
         return self._pool.retry_operation_sync(callee)
 
+    def link_to_parent(self, parent_id: str, child_id: str) -> None:
+        def callee(session: ydb.Session):
+            session.transaction().execute(
+                """
+                PRAGMA TablePathPrefix("{db_prefix}");
+                UPSERT INTO child_parent {keys} VALUES {values}
+                """.format(
+                    db_prefix=self._db_prefix,
+                    keys="(parent_id, child_id)",
+                    values=f'("{parent_id}", "{child_id}")',
+                ),
+                commit_tx=True,
+            )
+
+        return self._pool.retry_operation_sync(callee)
+
+    def unlink_from_parent(self, parent_id: str, child_id: str):
+        def callee(session: ydb.Session):
+            session.transaction().execute(
+                """
+                PRAGMA TablePathPrefix("{db_prefix}");
+                DELETE FROM child_parent
+                WHERE child_id = "{child_id}" AND parent_id = "{parent_id}"
+                """.format(
+                    db_prefix=self._db_prefix,
+                    child_id=child_id,
+                    parent_id=parent_id
+                ),
+                commit_tx=True,
+            )
+
+        return self._pool.retry_operation_sync(callee)
+
     def get_child_by_id(self, child_id: str):
         def callee(session: ydb.Session):
             return session.transaction().execute(
@@ -87,7 +118,7 @@ class ChildService:
                 PRAGMA TablePathPrefix("{db_prefix}");
                 SELECT *
                 FROM child
-                WHERE id = "{child_id}"
+                WHERE child_id = "{child_id}"
                 """.format(
                     db_prefix=self._db_prefix,
                     child_id=child_id,
@@ -100,7 +131,18 @@ class ChildService:
             return None
         if len(rows) > 1:
             raise ValueError("Duplicated id in db table")
-        return ChildModel.model_validate(rows[0])
+        row = rows[0]
+        return ChildModel(
+            child_id=row["child_id"],
+            first_name=row["first_name"],
+            middle_name=row["middle_name"],
+            last_name=row["last_name"],
+            birth_date=_convert_ydb_date_to_pydantic(row["birth_date"]),
+            start_education_date=_convert_ydb_date_to_pydantic(row["start_education_date"]),
+            end_education_date=_convert_ydb_date_to_pydantic(row["end_education_date"]),
+            gender=row["gender"],
+            avatar_url=row["avatar_url"],
+        )
 
     def delete_by_id(self, child_id: str):
         def callee(session: ydb.Session):

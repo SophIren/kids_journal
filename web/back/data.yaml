@@ -1,0 +1,1910 @@
+components:
+  schemas:
+    AgeRanges:
+      enum:
+      - 0-3
+      - 3-6
+      - 6-9
+      title: AgeRanges
+      type: string
+    Body_upsert_lesson_lessons_post:
+      properties:
+        child_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Child Ids
+        schedule:
+          $ref: '#/components/schemas/ScheduleModel'
+      required:
+      - schedule
+      title: Body_upsert_lesson_lessons_post
+      type: object
+    ChildModel:
+      properties:
+        avatar_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar Url
+        birth_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: Birth Date
+        child_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: 5f59e290-7bf2-472c-a068-e148494539ee
+          title: Child Id
+        end_education_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: End Education Date
+        first_name:
+          title: First Name
+          type: string
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/Gender'
+          - type: 'null'
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+        start_education_date:
+          anyOf:
+          - format: date
+            type: string
+          - type: 'null'
+          title: Start Education Date
+      required:
+      - first_name
+      title: ChildModel
+      type: object
+    ChildModelResponse:
+      properties:
+        birth_date:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Birth Date
+        child_id:
+          title: Child Id
+          type: string
+        name:
+          title: Name
+          type: string
+      required:
+      - child_id
+      - name
+      title: ChildModelResponse
+      type: object
+    ChildSkillModel:
+      properties:
+        child_id:
+          title: Child Id
+          type: string
+        presentation_id:
+          title: Presentation Id
+          type: string
+        skill_level_id:
+          title: Skill Level Id
+          type: string
+      required:
+      - child_id
+      - presentation_id
+      - skill_level_id
+      title: ChildSkillModel
+      type: object
+    Gender:
+      enum:
+      - MALE
+      - FEMALE
+      title: Gender
+      type: string
+    GroupModel:
+      properties:
+        age_range:
+          $ref: '#/components/schemas/AgeRanges'
+        group_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: 15b42952-b8ca-4329-851c-278230f6e39a
+          title: Group Id
+        name:
+          title: Name
+          type: string
+        organization_id:
+          title: Organization Id
+          type: string
+      required:
+      - organization_id
+      - name
+      - age_range
+      title: GroupModel
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    MergeUserModel:
+      properties:
+        phone_number:
+          title: Phone Number
+          type: string
+        tg_user_id:
+          title: Tg User Id
+          type: string
+      required:
+      - phone_number
+      - tg_user_id
+      title: MergeUserModel
+      type: object
+    OrganizationModel:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        end_education_time:
+          default: '2024-06-17T11:44:53Z'
+          format: date-time
+          title: End Education Time
+          type: string
+        name:
+          title: Name
+          type: string
+        organization_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: 65017106-8d2d-4a98-ac48-e08ab7a26aab
+          title: Organization Id
+        photo_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Photo Url
+        registration_date:
+          default: '2024-06-17T11:44:53Z'
+          format: date-time
+          title: Registration Date
+          type: string
+        start_education_time:
+          default: '2024-06-17T11:44:53Z'
+          format: date-time
+          title: Start Education Time
+          type: string
+        updated_date:
+          default: '2024-06-17T11:44:53Z'
+          format: date-time
+          title: Updated Date
+          type: string
+      required:
+      - name
+      title: OrganizationModel
+      type: object
+    PresentationModel:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        file_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Url
+        name:
+          title: Name
+          type: string
+        photo_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Photo Url
+        presentation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: 85b202e7-78c8-4b8a-8004-8d4115d3104a
+          title: Presentation Id
+        subject_id:
+          title: Subject Id
+          type: string
+      required:
+      - name
+      - subject_id
+      title: PresentationModel
+      type: object
+    Roles:
+      enum:
+      - parent
+      - employee
+      - unknown
+      title: Roles
+      type: string
+    ScheduleModel:
+      properties:
+        canceled:
+          default: false
+          title: Canceled
+          type: boolean
+        end_lesson:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: End Lesson
+        presentation_id:
+          title: Presentation Id
+          type: string
+        schedule_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: 585a0bc6-9a95-46f8-85ee-d1f9c22d4502
+          title: Schedule Id
+        start_lesson:
+          format: date-time
+          title: Start Lesson
+          type: string
+      required:
+      - presentation_id
+      - start_lesson
+      title: ScheduleModel
+      type: object
+    ScheduleModelResponse:
+      properties:
+        child_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Child Ids
+        end_lesson:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: End Lesson
+        is_for_child:
+          default: false
+          title: Is For Child
+          type: boolean
+        presentation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Presentation Id
+        schedule_id:
+          title: Schedule Id
+          type: string
+        start_lesson:
+          format: date-time
+          title: Start Lesson
+          type: string
+      required:
+      - schedule_id
+      - start_lesson
+      title: ScheduleModelResponse
+      type: object
+    SkillLevelModel:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        name:
+          title: Name
+          type: string
+        skill_level_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: e8248fe4-26ea-490b-be18-eeb5688caa72
+          title: Skill Level Id
+      required:
+      - name
+      title: SkillLevelModel
+      type: object
+    SubjectModel:
+      properties:
+        age_range:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Age Range
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        name:
+          title: Name
+          type: string
+        subject_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: 363ad7c5-44c0-465d-9ee5-136231779098
+          title: Subject Id
+      required:
+      - name
+      title: SubjectModel
+      type: object
+    UserModel:
+      properties:
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        first_name:
+          title: First Name
+          type: string
+        gender:
+          anyOf:
+          - $ref: '#/components/schemas/Gender'
+          - type: 'null'
+        last_name:
+          title: Last Name
+          type: string
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+        phone_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone Number
+        tg_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tg User Id
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: 3de7496f-f9ef-4bbf-bc28-a148c2cf9b8e
+          title: User Id
+      required:
+      - first_name
+      - last_name
+      title: UserModel
+      type: object
+    UserModelResponse:
+      properties:
+        name:
+          title: Name
+          type: string
+        phone_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone Number
+        user_id:
+          default: ae6af708-366e-401b-b9de-db2840e0d3e4
+          title: User Id
+          type: string
+      required:
+      - name
+      title: UserModelResponse
+      type: object
+    UserRoleResponse:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/UserModel'
+          - type: 'null'
+        role:
+          allOf:
+          - $ref: '#/components/schemas/Roles'
+          default: unknown
+      title: UserRoleResponse
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+info:
+  title: FastAPI
+  version: 0.1.0
+openapi: 3.0.0
+servers:
+- url: https://d5de0lctsr23htkj7hlj.apigw.yandexcloud.net
+x-yc-apigateway:
+  service_account_id: ajec0sj89ke5nr84p7bs
+  cors:
+    origin: '*'
+    methods: '*'
+    allowedHeaders: '*'
+paths:
+  /children/{child_id}:
+    delete:
+      operationId: delete_child_children__child_id__delete
+      parameters:
+      - in: path
+        name: child_id
+        required: true
+        schema:
+          title: Child Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Delete Child Children  Child Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Child
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /children/{child_id}/skills/:
+    get:
+      operationId: get_all_skills_for_child_children__child_id__skills__get
+      parameters:
+      - in: path
+        name: child_id
+        required: true
+        schema:
+          title: Child Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ChildSkillModel'
+                title: Response Get All Skills For Child Children  Child Id  Skills  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get All Skills For Child
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /children/{child_id}/skills/{presentation_id}/:
+    post:
+      operationId: upsert_skill_for_child_children__child_id__skills__presentation_id___post
+      parameters:
+      - in: path
+        name: child_id
+        required: true
+        schema:
+          title: Child Id
+          type: string
+      - in: path
+        name: presentation_id
+        required: true
+        schema:
+          title: Presentation Id
+          type: string
+      - in: query
+        name: skill_level_id
+        required: true
+        schema:
+          title: Skill Level Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Upsert Skill For Child
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /employee/phone/{phone}:
+    get:
+      operationId: get_user_by_phone_employee_phone__phone__get
+      parameters:
+      - in: path
+        name: phone
+        required: true
+        schema:
+          title: Phone
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/UserModel'
+                - type: 'null'
+                title: Response Get User By Phone Employee Phone  Phone  Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get User By Phone
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /employee/{phone}/organizations:
+    get:
+      operationId: get_employees_organization_names_by_phone_employee__phone__organizations_get
+      parameters:
+      - in: path
+        name: phone
+        required: true
+        schema:
+          title: Phone
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                title: Response Get Employees Organization Names By Phone Employee  Phone  Organizations
+                  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Employees Organization Names By Phone
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /employee/{tg_id}:
+    get:
+      operationId: get_user_by_tg_id_employee__tg_id__get
+      parameters:
+      - in: path
+        name: tg_id
+        required: true
+        schema:
+          title: Tg Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/UserModel'
+                - type: 'null'
+                title: Response Get User By Tg Id Employee  Tg Id  Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get User By Tg Id
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /employees/{employee_id}:
+    delete:
+      operationId: delete_employee_employees__employee_id__delete
+      parameters:
+      - in: path
+        name: employee_id
+        required: true
+        schema:
+          title: Employee Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Delete Employee Employees  Employee Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Employee
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /employees/{employee_id}/groups:
+    get:
+      operationId: get_groups_for_employee_employees__employee_id__groups_get
+      parameters:
+      - in: path
+        name: employee_id
+        required: true
+        schema:
+          title: Employee Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                title: Response Get Groups For Employee Employees  Employee Id  Groups
+                  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Groups For Employee
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /employees/{employee_id}/groups/{group_id}:
+    delete:
+      operationId: unlink_group_from_employee_employees__employee_id__groups__group_id__delete
+      parameters:
+      - in: path
+        name: employee_id
+        required: true
+        schema:
+          title: Employee Id
+          type: string
+      - in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Unlink Group From Employee Employees  Employee Id  Groups  Group
+                  Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Unlink Group From Employee
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    post:
+      operationId: link_employee_to_group_employees__employee_id__groups__group_id__post
+      parameters:
+      - in: path
+        name: employee_id
+        required: true
+        schema:
+          title: Employee Id
+          type: string
+      - in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Link Employee To Group Employees  Employee Id  Groups  Group
+                  Id  Post
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Link Employee To Group
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /groups:
+    post:
+      operationId: add_group_to_organization_groups_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Add Group To Organization Groups Post
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Add Group To Organization
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /groups/{group_id}:
+    delete:
+      operationId: delete_group_groups__group_id__delete
+      parameters:
+      - in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Delete Group Groups  Group Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Group
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    get:
+      operationId: get_group_groups__group_id__get
+      parameters:
+      - in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/GroupModel'
+                - type: 'null'
+                title: Response Get Group Groups  Group Id  Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Group
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /lessons:
+    post:
+      operationId: upsert_lesson_lessons_post
+      parameters:
+      - in: query
+        name: group_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_upsert_lesson_lessons_post'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Upsert Lesson Lessons Post
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Upsert Lesson
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /lessons/individual/{child_id}:
+    delete:
+      operationId: unlink_lesson_from_child_lessons_individual__child_id__delete
+      parameters:
+      - in: path
+        name: child_id
+        required: true
+        schema:
+          title: Child Id
+          type: string
+      - in: query
+        name: schedule_id
+        required: true
+        schema:
+          title: Schedule Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Unlink Lesson From Child Lessons Individual  Child
+                  Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Unlink Lesson From Child
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    get:
+      operationId: get_schedule_for_child_by_date_lessons_individual__child_id__get
+      parameters:
+      - in: path
+        name: child_id
+        required: true
+        schema:
+          title: Child Id
+          type: string
+      - in: query
+        name: date_day
+        required: true
+        schema:
+          format: date
+          title: Date Day
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ScheduleModelResponse'
+                title: Response Get Schedule For Child By Date Lessons Individual  Child
+                  Id  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Schedule For Child By Date
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /lessons/{group_id}:
+    get:
+      operationId: get_schedule_for_group_lessons__group_id__get
+      parameters:
+      - in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+      - in: query
+        name: date_day
+        required: true
+        schema:
+          format: date
+          title: Date Day
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ScheduleModelResponse'
+                title: Response Get Schedule For Group Lessons  Group Id  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Schedule For Group
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /lessons/{lesson_id}:
+    delete:
+      operationId: delete_lesson_lessons__lesson_id__delete
+      parameters:
+      - name: lesson_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Lesson Id
+      - in: query
+        name: schedule_id
+        required: true
+        schema:
+          title: Schedule Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Delete Lesson Lessons  Lesson Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Lesson
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /login:
+    get:
+      operationId: login_login_get
+      parameters:
+      - in: query
+        name: id
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Id
+      - in: query
+        name: first_name
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+      - in: query
+        name: last_name
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+      - in: query
+        name: username
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Username
+      - in: query
+        name: photo_url
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Photo Url
+      - in: query
+        name: auth_date
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Auth Date
+      - in: query
+        name: hash
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hash
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Login
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /organization/{organization_id}:
+    delete:
+      operationId: delete_organization_organization__organization_id__delete
+      parameters:
+      - in: path
+        name: organization_id
+        required: true
+        schema:
+          title: Organization Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Delete Organization Organization  Organization Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Organization
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /organizations:
+    get:
+      operationId: get_organizations_organizations_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizationModel'
+                title: Response Get Organizations Organizations Get
+                type: array
+          description: Successful Response
+      summary: Get Organizations
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    post:
+      operationId: create_organization_organizations_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Create Organization Organizations Post
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Organization
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /organizations/phone/{phone_number}:
+    get:
+      operationId: get_organizations_for_user_by_phone_organizations_phone__phone_number__get
+      parameters:
+      - in: path
+        name: phone_number
+        required: true
+        schema:
+          title: Phone Number
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                title: Response Get Organizations For User By Phone Organizations
+                  Phone  Phone Number  Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Organizations For User By Phone
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /organizations/{organization_id}:
+    get:
+      operationId: get_organization_organizations__organization_id__get
+      parameters:
+      - in: path
+        name: organization_id
+        required: true
+        schema:
+          title: Organization Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/OrganizationModel'
+                - type: 'null'
+                title: Response Get Organization Organizations  Organization Id  Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Organization
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /organizations/{organization_id}/employee:
+    get:
+      operationId: get_employees_for_organization_organizations__organization_id__employee_get
+      parameters:
+      - in: path
+        name: organization_id
+        required: true
+        schema:
+          title: Organization Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserModelResponse'
+                title: Response Get Employees For Organization Organizations  Organization
+                  Id  Employee Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Employees For Organization
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    post:
+      operationId: upsert_employee_organizations__organization_id__employee_post
+      parameters:
+      - in: path
+        name: organization_id
+        required: true
+        schema:
+          title: Organization Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Upsert Employee Organizations  Organization Id  Employee
+                  Post
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Upsert Employee
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /organizations/{organization_id}/groups:
+    get:
+      operationId: get_groups_by_organization_organizations__organization_id__groups_get
+      parameters:
+      - in: path
+        name: organization_id
+        required: true
+        schema:
+          title: Organization Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GroupModel'
+                title: Response Get Groups By Organization Organizations  Organization
+                  Id  Groups Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Groups By Organization
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /organizations/{organization_id}/subjects:
+    get:
+      operationId: get_all_subjects_for_organization_organizations__organization_id__subjects_get
+      parameters:
+      - in: path
+        name: organization_id
+        required: true
+        schema:
+          title: Organization Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SubjectModel'
+                title: Response Get All Subjects For Organization Organizations  Organization
+                  Id  Subjects Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get All Subjects For Organization
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    post:
+      operationId: create_subject_organizations__organization_id__subjects_post
+      parameters:
+      - in: path
+        name: organization_id
+        required: true
+        schema:
+          title: Organization Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubjectModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Subject
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /organizations/{organization_id}/subjects/{subject_id}:
+    get:
+      operationId: get_subject_organizations__organization_id__subjects__subject_id__get
+      parameters:
+      - in: path
+        name: organization_id
+        required: true
+        schema:
+          title: Organization Id
+          type: string
+      - in: path
+        name: subject_id
+        required: true
+        schema:
+          title: Subject Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubjectModel'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Subject
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /organizations/{organization_id}/subjects/{subject_id}/{presentation_id}:
+    get:
+      operationId: get_presentation_organizations__organization_id__subjects__subject_id___presentation_id__get
+      parameters:
+      - in: path
+        name: presentation_id
+        required: true
+        schema:
+          title: Presentation Id
+          type: string
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Organization Id
+      - name: subject_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Subject Id
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/PresentationModel'
+                - type: 'null'
+                title: Response Get Presentation Organizations  Organization Id  Subjects  Subject
+                  Id   Presentation Id  Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Presentation
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /parent/{parent_id}:
+    delete:
+      operationId: delete_parent_parent__parent_id__delete
+      parameters:
+      - in: path
+        name: parent_id
+        required: true
+        schema:
+          title: Parent Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Delete Parent Parent  Parent Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Parent
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /parents:
+    post:
+      operationId: create_parent_parents_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Create Parent Parents Post
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Parent
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /parents/child/{child_id}:
+    get:
+      operationId: get_parents_by_child_id_parents_child__child_id__get
+      parameters:
+      - in: path
+        name: child_id
+        required: true
+        schema:
+          title: Child Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                nullable: true
+                type: array
+                items:
+                  "$ref": "#/components/schemas/UserModel"
+                  nullable: true
+                minItems: 2
+                maxItems: 2
+                title: Response Get Parents By Child Id Parents Child  Child Id  Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Parents By Child Id
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /parents/{tg_id}:
+    get:
+      operationId: get_parent_by_tg_id_parents__tg_id__get
+      parameters:
+      - in: path
+        name: tg_id
+        required: true
+        schema:
+          title: Tg Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/UserModel'
+                - type: 'null'
+                title: Response Get Parent By Tg Id Parents  Tg Id  Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Parent By Tg Id
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /presentations/{presentation_id}:
+    delete:
+      operationId: delete_presentation_presentations__presentation_id__delete
+      parameters:
+      - in: path
+        name: presentation_id
+        required: true
+        schema:
+          title: Presentation Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Delete Presentation Presentations  Presentation Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Presentation
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /skills_levels:
+    get:
+      operationId: get_all_skill_levels_skills_levels_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SkillLevelModel'
+                title: Response Get All Skill Levels Skills Levels Get
+                type: array
+          description: Successful Response
+      summary: Get All Skill Levels
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    post:
+      operationId: upsert_skill_level_skills_levels_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillLevelModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Upsert Skill Level
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /skills_levels/{skill_level_id}:
+    delete:
+      operationId: delete_skill_level_skills_levels__skill_level_id__delete
+      parameters:
+      - in: path
+        name: skill_level_id
+        required: true
+        schema:
+          title: Skill Level Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Skill Level
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    get:
+      operationId: get_skill_level_by_id_skills_levels__skill_level_id__get
+      parameters:
+      - in: path
+        name: skill_level_id
+        required: true
+        schema:
+          title: Skill Level Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillLevelModel'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Skill Level By Id
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /subjects/{subject_id}:
+    delete:
+      operationId: delete_subject_subjects__subject_id__delete
+      parameters:
+      - in: path
+        name: subject_id
+        required: true
+        schema:
+          title: Subject Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Subject
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /subjects/{subject_id}/presentations:
+    get:
+      operationId: get_all_presentations_for_subject_subjects__subject_id__presentations_get
+      parameters:
+      - in: path
+        name: subject_id
+        required: true
+        schema:
+          title: Subject Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - items:
+                    $ref: '#/components/schemas/PresentationModel'
+                  type: array
+                - type: 'null'
+                title: Response Get All Presentations For Subject Subjects  Subject
+                  Id  Presentations Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get All Presentations For Subject
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    post:
+      operationId: upsert_presentation_subjects__subject_id__presentations_post
+      parameters:
+      - in: path
+        name: subject_id
+        required: true
+        schema:
+          title: Subject Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PresentationModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Upsert Presentation Subjects  Subject Id  Presentations
+                  Post
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Upsert Presentation
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /user_merge:
+    post:
+      operationId: try_merge_user_by_phone_user_merge_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeUserModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRoleResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Try Merge User By Phone
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+  /{group_id}/child:
+    get:
+      operationId: get_children_by_group_id__group_id__child_get
+      parameters:
+      - in: path
+        name: group_id
+        required: true
+        schema:
+          title: Group Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ChildModelResponse'
+                title: Response Get Children By Group Id  Group Id  Child Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Children By Group Id
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8
+    post:
+      operationId: upsert_child__group_id__child_post
+      parameters:
+      - in: path
+        name: group_id
+        required: true
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChildModel'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Upsert Child  Group Id  Child Post
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Upsert Child
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: bbaun4q4u3tog5iae1j8

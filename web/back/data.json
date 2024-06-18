@@ -1,8 +1,8 @@
 {
-  "openapi": "3.0",
+  "openapi": "3.0.0",
   "info": {
-    "title": "Dobry Mir api",
-    "version": "1.0"
+    "title": "FastAPI",
+    "version": "0.1.0"
   },
   "paths": {
     "/groups": {
@@ -24,7 +24,10 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "null",
+                  "title": "Response Add Group To Organization Groups Post"
+                }
               }
             }
           },
@@ -41,18 +44,17 @@
         }
       }
     },
-    "/organizations/{organizationId}/groups": {
+    "/organizations/{organization_id}/groups": {
       "get": {
         "summary": "Get Groups By Organization",
-        "operationId": "get_groups_by_organization_organizations__organizationId__groups_get",
+        "operationId": "get_groups_by_organization_organizations__organization_id__groups_get",
         "parameters": [
           {
             "name": "organization_id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
               "title": "Organization Id"
             }
           }
@@ -67,7 +69,7 @@
                   "items": {
                     "$ref": "#/components/schemas/GroupModel"
                   },
-                  "title": "Response Get Groups By Organization Organizations  Organizationid  Groups Get"
+                  "title": "Response Get Groups By Organization Organizations  Organization Id  Groups Get"
                 }
               }
             }
@@ -85,18 +87,17 @@
         }
       }
     },
-    "/groups/{groupId}": {
+    "/groups/{group_id}": {
       "get": {
         "summary": "Get Group",
-        "operationId": "get_group_groups__groupId__get",
+        "operationId": "get_group_groups__group_id__get",
         "parameters": [
           {
             "name": "group_id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
               "title": "Group Id"
             }
           }
@@ -115,7 +116,7 @@
                       "type": "null"
                     }
                   ],
-                  "title": "Response Get Group Groups  Groupid  Get"
+                  "title": "Response Get Group Groups  Group Id  Get"
                 }
               }
             }
@@ -131,28 +132,30 @@
             }
           }
         }
-      }
-    },
-    "/groups/link_children": {
-      "post": {
-        "summary": "Add Children To Group",
-        "operationId": "add_children_to_group_groups_link_children_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupChildModel"
-              }
+      },
+      "delete": {
+        "summary": "Delete Group",
+        "operationId": "delete_group_groups__group_id__delete",
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Group Id"
             }
-          },
-          "required": true
-        },
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "null",
+                  "title": "Response Delete Group Groups  Group Id  Delete"
+                }
               }
             }
           },
@@ -208,7 +211,53 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "null",
+                  "title": "Response Create Organization Organizations Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/phone/{phone_number}": {
+      "get": {
+        "summary": "Get Organizations For User By Phone",
+        "operationId": "get_organizations_for_user_by_phone_organizations_phone__phone_number__get",
+        "parameters": [
+          {
+            "name": "phone_number",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Phone Number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response Get Organizations For User By Phone Organizations Phone  Phone Number  Get"
+                }
               }
             }
           },
@@ -236,7 +285,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
               "title": "Organization Id"
             }
           }
@@ -256,6 +304,46 @@
                     }
                   ],
                   "title": "Response Get Organization Organizations  Organization Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organization/{organization_id}": {
+      "delete": {
+        "summary": "Delete Organization",
+        "operationId": "delete_organization_organization__organization_id__delete",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Delete Organization Organization  Organization Id  Delete"
                 }
               }
             }
@@ -396,7 +484,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+
+                }
               }
             }
           },
@@ -407,23 +497,6 @@
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
                 }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/": {
-      "get": {
-        "summary": "Index",
-        "description": "Index page just redirects to login page.",
-        "operationId": "index__get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
               }
             }
           }
@@ -438,7 +511,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ParentModel"
+                "$ref": "#/components/schemas/UserModel"
               }
             }
           },
@@ -449,7 +522,10 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "null",
+                  "title": "Response Create Parent Parents Post"
+                }
               }
             }
           },
@@ -466,14 +542,14 @@
         }
       }
     },
-    "/parents/{tgId}": {
+    "/parents/{tg_id}": {
       "get": {
         "summary": "Get Parent By Tg Id",
-        "operationId": "get_parent_by_tg_id_parents__tgId__get",
+        "operationId": "get_parent_by_tg_id_parents__tg_id__get",
         "parameters": [
           {
             "name": "tg_id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
@@ -489,13 +565,13 @@
                 "schema": {
                   "anyOf": [
                     {
-                      "$ref": "#/components/schemas/ParentModel"
+                      "$ref": "#/components/schemas/UserModel"
                     },
                     {
                       "type": "null"
                     }
                   ],
-                  "title": "Response Get Parent By Tg Id Parents  Tgid  Get"
+                  "title": "Response Get Parent By Tg Id Parents  Tg Id  Get"
                 }
               }
             }
@@ -513,14 +589,14 @@
         }
       }
     },
-    "/parents/child/{childId}": {
+    "/parents/child/{child_id}": {
       "get": {
         "summary": "Get Parents By Child Id",
-        "operationId": "get_parents_by_child_id_parents_child__childId__get",
+        "operationId": "get_parents_by_child_id_parents_child__child_id__get",
         "parameters": [
           {
             "name": "child_id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
@@ -540,10 +616,24 @@
                       "minItems": 2,
                       "prefixItems": [
                         {
-                          "$ref": "#/components/schemas/ParentModel"
+                          "anyOf": [
+                            {
+                              "$ref": "#/components/schemas/UserModel"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         },
                         {
-                          "$ref": "#/components/schemas/ParentModel"
+                          "anyOf": [
+                            {
+                              "$ref": "#/components/schemas/UserModel"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         }
                       ],
                       "maxItems": 2
@@ -552,7 +642,7 @@
                       "type": "null"
                     }
                   ],
-                  "title": "Response Get Parents By Child Id Parents Child  Childid  Get"
+                  "title": "Response Get Parents By Child Id Parents Child  Child Id  Get"
                 }
               }
             }
@@ -570,26 +660,121 @@
         }
       }
     },
-    "/employee": {
-      "post": {
-        "summary": "Create Employee",
-        "operationId": "create_employee_employee_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/EmployeeModel"
+    "/parent/{parent_id}": {
+      "delete": {
+        "summary": "Delete Parent",
+        "operationId": "delete_parent_parent__parent_id__delete",
+        "parameters": [
+          {
+            "name": "parent_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Parent Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Delete Parent Parent  Parent Id  Delete"
+                }
               }
             }
           },
-          "required": true
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/employee": {
+      "post": {
+        "summary": "Upsert Employee",
+        "operationId": "upsert_employee_organizations__organization_id__employee_post",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserModel"
+              }
+            }
+          }
         },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "null",
+                  "title": "Response Upsert Employee Organizations  Organization Id  Employee Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get Employees For Organization",
+        "operationId": "get_employees_for_organization_organizations__organization_id__employee_get",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserModelResponse"
+                  },
+                  "title": "Response Get Employees For Organization Organizations  Organization Id  Employee Get"
+                }
               }
             }
           },
@@ -606,14 +791,14 @@
         }
       }
     },
-    "/employee/{tgId}": {
+    "/employee/{tg_id}": {
       "get": {
-        "summary": "Get Employee By Tg Id",
-        "operationId": "get_employee_by_tg_id_employee__tgId__get",
+        "summary": "Get User By Tg Id",
+        "operationId": "get_user_by_tg_id_employee__tg_id__get",
         "parameters": [
           {
             "name": "tg_id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
@@ -629,13 +814,13 @@
                 "schema": {
                   "anyOf": [
                     {
-                      "$ref": "#/components/schemas/EmployeeModel"
+                      "$ref": "#/components/schemas/UserModel"
                     },
                     {
                       "type": "null"
                     }
                   ],
-                  "title": "Response Get Employee By Tg Id Employee  Tgid  Get"
+                  "title": "Response Get User By Tg Id Employee  Tg Id  Get"
                 }
               }
             }
@@ -653,26 +838,316 @@
         }
       }
     },
-    "/child": {
+    "/employee/phone/{phone}": {
+      "get": {
+        "summary": "Get User By Phone",
+        "operationId": "get_user_by_phone_employee_phone__phone__get",
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Phone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/UserModel"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get User By Phone Employee Phone  Phone  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employee/{phone}/organizations": {
+      "get": {
+        "summary": "Get Employees Organization Names By Phone",
+        "operationId": "get_employees_organization_names_by_phone_employee__phone__organizations_get",
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Phone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response Get Employees Organization Names By Phone Employee  Phone  Organizations Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employees/{employee_id}/groups": {
+      "get": {
+        "summary": "Get Groups For Employee",
+        "operationId": "get_groups_for_employee_employees__employee_id__groups_get",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Employee Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response Get Groups For Employee Employees  Employee Id  Groups Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employees/{employee_id}/groups/{group_id}": {
       "post": {
-        "summary": "Create Child",
-        "operationId": "create_child_child_post",
+        "summary": "Link Employee To Group",
+        "operationId": "link_employee_to_group_employees__employee_id__groups__group_id__post",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Employee Id"
+            }
+          },
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Group Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Link Employee To Group Employees  Employee Id  Groups  Group Id  Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Unlink Group From Employee",
+        "operationId": "unlink_group_from_employee_employees__employee_id__groups__group_id__delete",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Employee Id"
+            }
+          },
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Group Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Unlink Group From Employee Employees  Employee Id  Groups  Group Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employees/{employee_id}": {
+      "delete": {
+        "summary": "Delete Employee",
+        "operationId": "delete_employee_employees__employee_id__delete",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Employee Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Delete Employee Employees  Employee Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{group_id}/child": {
+      "post": {
+        "summary": "Upsert Child",
+        "operationId": "upsert_child__group_id__child_post",
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Group Id"
+            }
+          }
+        ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ChildModel"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "null",
+                  "title": "Response Upsert Child  Group Id  Child Post"
+                }
               }
             }
           },
@@ -687,20 +1162,17 @@
             }
           }
         }
-      }
-    },
-    "/child/{groupId}": {
+      },
       "get": {
         "summary": "Get Children By Group Id",
-        "operationId": "get_children_by_group_id_child__groupId__get",
+        "operationId": "get_children_by_group_id__group_id__child_get",
         "parameters": [
           {
             "name": "group_id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
               "title": "Group Id"
             }
           }
@@ -713,9 +1185,933 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ChildModel"
+                    "$ref": "#/components/schemas/ChildModelResponse"
                   },
-                  "title": "Response Get Children By Group Id Child  Groupid  Get"
+                  "title": "Response Get Children By Group Id  Group Id  Child Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/children/{child_id}/skills/{presentation_id}/": {
+      "post": {
+        "summary": "Upsert Skill For Child",
+        "operationId": "upsert_skill_for_child_children__child_id__skills__presentation_id___post",
+        "parameters": [
+          {
+            "name": "child_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Child Id"
+            }
+          },
+          {
+            "name": "presentation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Presentation Id"
+            }
+          },
+          {
+            "name": "skill_level_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Skill Level Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/children/{child_id}/skills/": {
+      "get": {
+        "summary": "Get All Skills For Child",
+        "operationId": "get_all_skills_for_child_children__child_id__skills__get",
+        "parameters": [
+          {
+            "name": "child_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Child Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChildSkillModel"
+                  },
+                  "title": "Response Get All Skills For Child Children  Child Id  Skills  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/children/{child_id}": {
+      "delete": {
+        "summary": "Delete Child",
+        "operationId": "delete_child_children__child_id__delete",
+        "parameters": [
+          {
+            "name": "child_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Child Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Delete Child Children  Child Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user_merge": {
+      "post": {
+        "summary": "Try Merge User By Phone",
+        "operationId": "try_merge_user_by_phone_user_merge_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MergeUserModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/subjects/{subject_id}": {
+      "get": {
+        "summary": "Get Subject",
+        "operationId": "get_subject_organizations__organization_id__subjects__subject_id__get",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          },
+          {
+            "name": "subject_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Subject Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubjectModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/subjects": {
+      "get": {
+        "summary": "Get All Subjects For Organization",
+        "operationId": "get_all_subjects_for_organization_organizations__organization_id__subjects_get",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubjectModel"
+                  },
+                  "title": "Response Get All Subjects For Organization Organizations  Organization Id  Subjects Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Subject",
+        "operationId": "create_subject_organizations__organization_id__subjects_post",
+        "parameters": [
+          {
+            "name": "organization_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Organization Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubjectModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subjects/{subject_id}": {
+      "delete": {
+        "summary": "Delete Subject",
+        "operationId": "delete_subject_subjects__subject_id__delete",
+        "parameters": [
+          {
+            "name": "subject_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Subject Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subjects/{subject_id}/presentations": {
+      "post": {
+        "summary": "Upsert Presentation",
+        "operationId": "upsert_presentation_subjects__subject_id__presentations_post",
+        "parameters": [
+          {
+            "name": "subject_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Subject Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PresentationModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Upsert Presentation Subjects  Subject Id  Presentations Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get All Presentations For Subject",
+        "operationId": "get_all_presentations_for_subject_subjects__subject_id__presentations_get",
+        "parameters": [
+          {
+            "name": "subject_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Subject Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PresentationModel"
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get All Presentations For Subject Subjects  Subject Id  Presentations Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations/{organization_id}/subjects/{subject_id}/{presentation_id}": {
+      "get": {
+        "summary": "Get Presentation",
+        "operationId": "get_presentation_organizations__organization_id__subjects__subject_id___presentation_id__get",
+        "parameters": [
+          {
+            "name": "presentation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Presentation Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/PresentationModel"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Presentation Organizations  Organization Id  Subjects  Subject Id   Presentation Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/presentations/{presentation_id}": {
+      "delete": {
+        "summary": "Delete Presentation",
+        "operationId": "delete_presentation_presentations__presentation_id__delete",
+        "parameters": [
+          {
+            "name": "presentation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Presentation Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Delete Presentation Presentations  Presentation Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons": {
+      "post": {
+        "summary": "Upsert Lesson",
+        "operationId": "upsert_lesson_lessons_post",
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Group Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upsert_lesson_lessons_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Upsert Lesson Lessons Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons/{group_id}": {
+      "get": {
+        "summary": "Get Schedule For Group",
+        "operationId": "get_schedule_for_group_lessons__group_id__get",
+        "parameters": [
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Group Id"
+            }
+          },
+          {
+            "name": "date_day",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "Date Day"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ScheduleModelResponse"
+                  },
+                  "title": "Response Get Schedule For Group Lessons  Group Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons/individual/{child_id}": {
+      "get": {
+        "summary": "Get Schedule For Child By Date",
+        "operationId": "get_schedule_for_child_by_date_lessons_individual__child_id__get",
+        "parameters": [
+          {
+            "name": "child_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Child Id"
+            }
+          },
+          {
+            "name": "date_day",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "title": "Date Day"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ScheduleModelResponse"
+                  },
+                  "title": "Response Get Schedule For Child By Date Lessons Individual  Child Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Unlink Lesson From Child",
+        "operationId": "unlink_lesson_from_child_lessons_individual__child_id__delete",
+        "parameters": [
+          {
+            "name": "child_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Child Id"
+            }
+          },
+          {
+            "name": "schedule_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Schedule Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Unlink Lesson From Child Lessons Individual  Child Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessons/{lesson_id}": {
+      "delete": {
+        "summary": "Delete Lesson",
+        "operationId": "delete_lesson_lessons__lesson_id__delete",
+        "parameters": [
+          {
+            "name": "schedule_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Schedule Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "null",
+                  "title": "Response Delete Lesson Lessons  Lesson Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/skills_levels": {
+      "get": {
+        "summary": "Get All Skill Levels",
+        "operationId": "get_all_skill_levels_skills_levels_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SkillLevelModel"
+                  },
+                  "type": "array",
+                  "title": "Response Get All Skill Levels Skills Levels Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Upsert Skill Level",
+        "operationId": "upsert_skill_level_skills_levels_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SkillLevelModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/skills_levels/{skill_level_id}": {
+      "get": {
+        "summary": "Get Skill Level By Id",
+        "operationId": "get_skill_level_by_id_skills_levels__skill_level_id__get",
+        "parameters": [
+          {
+            "name": "skill_level_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Skill Level Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SkillLevelModel"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Skill Level",
+        "operationId": "delete_skill_level_skills_levels__skill_level_id__delete",
+        "parameters": [
+          {
+            "name": "skill_level_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Skill Level Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
                 }
               }
             }
@@ -739,27 +2135,66 @@
       "AgeRanges": {
         "type": "string",
         "enum": [
-          "0-2",
-          "2-4",
-          "4-6"
+          "0-3",
+          "3-6",
+          "6-9"
         ],
         "title": "AgeRanges"
+      },
+      "Body_upsert_lesson_lessons_post": {
+        "properties": {
+          "schedule": {
+            "$ref": "#/components/schemas/ScheduleModel"
+          },
+          "child_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Child Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "schedule"
+        ],
+        "title": "Body_upsert_lesson_lessons_post"
       },
       "ChildModel": {
         "properties": {
           "child_id": {
-            "type": "string",
-            "format": "uuid",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Child Id",
-            "default": "25bf4a03-3001-45c8-99e2-6ec0ed51778f"
-          },
-          "name": {
-            "type": "string",
-            "title": "Name"
+            "default": "5f59e290-7bf2-472c-a068-e148494539ee"
           },
           "first_name": {
             "type": "string",
             "title": "First Name"
+          },
+          "middle_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Middle Name"
           },
           "last_name": {
             "anyOf": [
@@ -776,7 +2211,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "date-time"
+                "format": "date"
               },
               {
                 "type": "null"
@@ -788,7 +2223,7 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "date-time"
+                "format": "date"
               },
               {
                 "type": "null"
@@ -796,140 +2231,98 @@
             ],
             "title": "Start Education Date"
           },
-          "start_education_time": {
+          "end_education_date": {
             "anyOf": [
               {
                 "type": "string",
-                "format": "date-time"
+                "format": "date"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Start Education Time"
-          },
-          "end_education_time": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "End Education Time"
+            "title": "End Education Date"
           },
           "gender": {
-            "$ref": "#/components/schemas/Gender"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Gender"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
-          "parent_1_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Parent 1 Id",
-            "default": "8ed7f0d4-9c98-4251-9589-35a5685ebd01"
-          },
-          "parent_2_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Parent 2 Id",
-            "default": "a9bc9729-9a61-4fa7-9c62-0a059e13bf75"
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
           }
         },
         "type": "object",
         "required": [
-          "name",
-          "first_name",
-          "gender"
+          "first_name"
         ],
         "title": "ChildModel"
       },
-      "EmployeeModel": {
+      "ChildModelResponse": {
         "properties": {
-          "employee_id": {
+          "child_id": {
             "type": "string",
-            "format": "uuid",
-            "title": "Employee Id",
-            "default": "d7e610c3-6a37-41e3-8ea6-82b6c72868ba"
+            "title": "Child Id"
           },
           "name": {
             "type": "string",
             "title": "Name"
           },
-          "first_name": {
-            "type": "string",
-            "title": "First Name"
-          },
-          "last_name": {
+          "birth_date": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "format": "date-time"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Last Name"
-          },
-          "email": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Email"
-          },
-          "gender": {
-            "$ref": "#/components/schemas/Gender"
-          },
-          "phone_number": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Phone Number"
-          },
-          "tg_user_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Tg User Id"
-          },
-          "role_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Role Id"
-          },
-          "group_ids": {
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "type": "array",
-            "title": "Group Ids",
-            "default": []
+            "title": "Birth Date"
           }
         },
         "type": "object",
         "required": [
-          "name",
-          "first_name",
-          "gender",
-          "role_id"
+          "child_id",
+          "name"
         ],
-        "title": "EmployeeModel"
+        "title": "ChildModelResponse"
+      },
+      "ChildSkillModel": {
+        "properties": {
+          "child_id": {
+            "type": "string",
+            "title": "Child Id"
+          },
+          "presentation_id": {
+            "type": "string",
+            "title": "Presentation Id"
+          },
+          "skill_level_id": {
+            "type": "string",
+            "title": "Skill Level Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "child_id",
+          "presentation_id",
+          "skill_level_id"
+        ],
+        "title": "ChildSkillModel"
       },
       "Gender": {
         "type": "string",
@@ -939,40 +2332,23 @@
         ],
         "title": "Gender"
       },
-      "GroupChildModel": {
-        "properties": {
-          "group_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Group Id",
-            "default": "147425e2-34de-4a34-a2bc-75a9199192ac"
-          },
-          "child_ids": {
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "type": "array",
-            "title": "Child Ids",
-            "default": []
-          }
-        },
-        "type": "object",
-        "title": "GroupChildModel"
-      },
       "GroupModel": {
         "properties": {
           "group_id": {
-            "type": "string",
-            "format": "uuid",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Group Id",
-            "default": "8e650e97-4a15-41a1-8e68-70a63709c15f"
+            "default": "15b42952-b8ca-4329-851c-278230f6e39a"
           },
           "organization_id": {
             "type": "string",
-            "format": "uuid",
-            "title": "Organization Id",
-            "default": "7ee7284a-f9d1-46c3-b256-ebb274002bf0"
+            "title": "Organization Id"
           },
           "name": {
             "type": "string",
@@ -984,6 +2360,7 @@
         },
         "type": "object",
         "required": [
+          "organization_id",
           "name",
           "age_range"
         ],
@@ -1002,13 +2379,37 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "MergeUserModel": {
+        "properties": {
+          "phone_number": {
+            "type": "string",
+            "title": "Phone Number"
+          },
+          "tg_user_id": {
+            "type": "string",
+            "title": "Tg User Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "phone_number",
+          "tg_user_id"
+        ],
+        "title": "MergeUserModel"
+      },
       "OrganizationModel": {
         "properties": {
           "organization_id": {
-            "type": "string",
-            "format": "uuid",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
             "title": "Organization Id",
-            "default": "f7e4718e-5139-489a-966d-79ff7b4ce527"
+            "default": "65017106-8d2d-4a98-ac48-e08ab7a26aab"
           },
           "name": {
             "type": "string",
@@ -1039,51 +2440,37 @@
           "start_education_time": {
             "type": "string",
             "format": "date-time",
-            "title": "Start Education Time"
+            "title": "Start Education Time",
+            "default": "2024-06-17T11:44:53.151046"
           },
           "end_education_time": {
             "type": "string",
             "format": "date-time",
-            "title": "End Education Time"
+            "title": "End Education Time",
+            "default": "2024-06-17T11:44:53.151173"
           },
           "registration_date": {
             "type": "string",
             "format": "date-time",
             "title": "Registration Date",
-            "default": "2024-01-14T13:34:13.668758"
+            "default": "2024-06-17T11:44:53.151174"
           },
           "updated_date": {
             "type": "string",
             "format": "date-time",
             "title": "Updated Date",
-            "default": "2024-01-14T13:34:13.669007"
+            "default": "2024-06-17T11:44:53.151174"
           }
         },
         "type": "object",
         "required": [
-          "name",
-          "start_education_time",
-          "end_education_time"
+          "name"
         ],
         "title": "OrganizationModel"
       },
-      "ParentModel": {
+      "PresentationModel": {
         "properties": {
-          "parent_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Parent Id",
-            "default": "298107d3-49d8-4cc4-9907-e3c64cbf1805"
-          },
-          "name": {
-            "type": "string",
-            "title": "Name"
-          },
-          "first_name": {
-            "type": "string",
-            "title": "First Name"
-          },
-          "last_name": {
+          "presentation_id": {
             "anyOf": [
               {
                 "type": "string"
@@ -1092,6 +2479,290 @@
                 "type": "null"
               }
             ],
+            "title": "Presentation Id",
+            "default": "85b202e7-78c8-4b8a-8004-8d4115d3104a"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "photo_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Photo Url"
+          },
+          "file_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Url"
+          },
+          "subject_id": {
+            "type": "string",
+            "title": "Subject Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "subject_id"
+        ],
+        "title": "PresentationModel"
+      },
+      "Roles": {
+        "type": "string",
+        "enum": [
+          "parent",
+          "employee",
+          "unknown"
+        ],
+        "title": "Roles"
+      },
+      "ScheduleModel": {
+        "properties": {
+          "schedule_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Schedule Id",
+            "default": "585a0bc6-9a95-46f8-85ee-d1f9c22d4502"
+          },
+          "presentation_id": {
+            "type": "string",
+            "title": "Presentation Id"
+          },
+          "start_lesson": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Lesson"
+          },
+          "end_lesson": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Lesson"
+          },
+          "canceled": {
+            "type": "boolean",
+            "title": "Canceled",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "presentation_id",
+          "start_lesson"
+        ],
+        "title": "ScheduleModel"
+      },
+      "ScheduleModelResponse": {
+        "properties": {
+          "schedule_id": {
+            "type": "string",
+            "title": "Schedule Id"
+          },
+          "presentation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Presentation Id"
+          },
+          "child_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Child Ids"
+          },
+          "start_lesson": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Lesson"
+          },
+          "end_lesson": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Lesson"
+          },
+          "is_for_child": {
+            "type": "boolean",
+            "title": "Is For Child",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "schedule_id",
+          "start_lesson"
+        ],
+        "title": "ScheduleModelResponse"
+      },
+      "SkillLevelModel": {
+        "properties": {
+          "skill_level_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Level Id",
+            "default": "e8248fe4-26ea-490b-be18-eeb5688caa72"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "SkillLevelModel"
+      },
+      "SubjectModel": {
+        "properties": {
+          "subject_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subject Id",
+            "default": "363ad7c5-44c0-465d-9ee5-136231779098"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "age_range": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Range"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "SubjectModel"
+      },
+      "UserModel": {
+        "properties": {
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id",
+            "default": "3de7496f-f9ef-4bbf-bc28-a148c2cf9b8e"
+          },
+          "first_name": {
+            "type": "string",
+            "title": "First Name"
+          },
+          "middle_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Middle Name"
+          },
+          "last_name": {
+            "type": "string",
             "title": "Last Name"
           },
           "email": {
@@ -1106,7 +2777,14 @@
             "title": "Email"
           },
           "gender": {
-            "$ref": "#/components/schemas/Gender"
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Gender"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "phone_number": {
             "anyOf": [
@@ -1118,10 +2796,6 @@
               }
             ],
             "title": "Phone Number"
-          },
-          "freq_notifications": {
-            "type": "integer",
-            "title": "Freq Notifications"
           },
           "tg_user_id": {
             "anyOf": [
@@ -1137,12 +2811,63 @@
         },
         "type": "object",
         "required": [
-          "name",
           "first_name",
-          "gender",
-          "freq_notifications"
+          "last_name"
         ],
-        "title": "ParentModel"
+        "title": "UserModel"
+      },
+      "UserModelResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id",
+            "default": "ae6af708-366e-401b-b9de-db2840e0d3e4"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "phone_number": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone Number"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "UserModelResponse"
+      },
+      "UserRoleResponse": {
+        "properties": {
+          "role": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Roles"
+              }
+            ],
+            "default": "unknown"
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UserModel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "UserRoleResponse"
       },
       "ValidationError": {
         "properties": {

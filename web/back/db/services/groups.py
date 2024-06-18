@@ -4,8 +4,8 @@ from typing import Any
 
 import ydb
 
-from db.utils import _format_unix_time
-from models.child import ChildModelResponse
+from db.utils import _format_unix_time, _format_date_time, _format_date_time_to_date, _convert_ydb_date_to_pydantic
+from models.child import ChildModelResponse, ChildModel
 from models.group import GroupModel
 from models.user import UserModelResponse
 
@@ -107,6 +107,24 @@ class GroupService:
 
         self._pool.retry_operation_sync(callee)
 
+    def get_children_ids_by_group_id(self, group_id: str) -> list[str]:
+        def callee(session: ydb.Session):
+            return session.transaction().execute(
+                """
+                PRAGMA TablePathPrefix("{db_prefix}");
+                SELECT *
+                FROM group_child
+                WHERE group_id = "{group_id}"
+                """.format(
+                    db_prefix=self._db_prefix,
+                    group_id=group_id,
+                ),
+                commit_tx=True,
+            )
+
+        rows = self._pool.retry_operation_sync(callee)[0].rows
+        return [row["child_id"] for row in rows]
+
     def get_children_by_group_id(self, group_id: str) -> list[ChildModelResponse]:
         def callee(session: ydb.Session):
             return session.transaction().execute(
@@ -114,8 +132,8 @@ class GroupService:
                 PRAGMA TablePathPrefix("{db_prefix}");
                 SELECT c.child_id, c.first_name, c.last_name, c.birth_date
                 FROM child as c
-                JOIN group_child on c.child_id = group_child.child_id
-                WHERE group_id = "{group_id}"
+                JOIN group_child AS gc on c.child_id = gc.child_id
+                WHERE gc.group_id = "{group_id}"
                 """.format(
                     db_prefix=self._db_prefix,
                     group_id=group_id,
@@ -132,8 +150,26 @@ class GroupService:
                 ChildModelResponse(
                     child_id=row["c.child_id"],
                     name=f'{row["c.first_name"]} {row["c.last_name"]}',
-                    birth_date=_format_unix_time(row["c.birth_date"]),
+                    birth_date=_convert_ydb_date_to_pydantic(row["c.birth_date"]),
                 )
             )
 
         return result
+
+    def get_employee_ids_by_group_id(self, group_id: str) -> list[str]:
+        def callee(session: ydb.Session):
+            return session.transaction().execute(
+                """
+                PRAGMA TablePathPrefix("{db_prefix}");
+                SELECT teacher_id
+                FROM group_teacher
+                WHERE group_id = "{group_id}"
+                """.format(
+                    db_prefix=self._db_prefix,
+                    group_id=group_id
+                ),
+                commit_tx=True,
+            )
+
+        rows = self._pool.retry_operation_sync(callee)[0].rows
+        return [row["teacher_id"] for row in rows]

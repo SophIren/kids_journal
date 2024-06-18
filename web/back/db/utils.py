@@ -1,3 +1,10 @@
+from __future__ import annotations
+
+from datetime import date, timedelta
+
+import ydb
+
+
 def _format_time(date_time: str | None) -> str | None:
     if date_time is None:
         return None
@@ -32,3 +39,17 @@ def _format_unix_time(seconds: int | None) -> int | None:
     if seconds is None:
         return seconds
     return int(str(seconds)[:10])  # Какая-то ydb дичь, оно высирает нули справа
+
+
+def _convert_ydb_date_to_pydantic(ydb_date: int):
+    """
+    Преобразует количество дней, прошедших с 1970-01-01, в строку даты в формате ГГГГ-ММ-ДД.
+
+    :param ydb_date: Количество дней с 1970-01-01 (int).
+    :return: Строка даты в формате ГГГГ-ММ-ДД (str).
+    """
+    base_date = date(1970, 1, 1)
+    actual_date = base_date + timedelta(days=ydb_date)
+    return actual_date.strftime('%Y-%m-%d')
+
+
