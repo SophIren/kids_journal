@@ -168,7 +168,7 @@ components:
           - type: 'null'
           title: Description
         end_education_time:
-          default: '2024-06-17T11:44:53Z'
+          default: '2024-06-17T11:44:53.151173'
           format: date-time
           title: End Education Time
           type: string
@@ -187,17 +187,17 @@ components:
           - type: 'null'
           title: Photo Url
         registration_date:
-          default: '2024-06-17T11:44:53Z'
+          default: '2024-06-17T11:44:53.151174'
           format: date-time
           title: Registration Date
           type: string
         start_education_time:
-          default: '2024-06-17T11:44:53Z'
+          default: '2024-06-17T11:44:53.151046'
           format: date-time
           title: Start Education Time
           type: string
         updated_date:
-          default: '2024-06-17T11:44:53Z'
+          default: '2024-06-17T11:44:53.151174'
           format: date-time
           title: Updated Date
           type: string
@@ -455,14 +455,6 @@ info:
   title: FastAPI
   version: 0.1.0
 openapi: 3.0.0
-servers:
-- url: https://d5de0lctsr23htkj7hlj.apigw.yandexcloud.net
-x-yc-apigateway:
-  service_account_id: ajec0sj89ke5nr84p7bs
-  cors:
-    origin: '*'
-    methods: '*'
-    allowedHeaders: '*'
 paths:
   /children/{child_id}:
     delete:
@@ -489,9 +481,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Delete Child
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /children/{child_id}/skills/:
     get:
       operationId: get_all_skills_for_child_children__child_id__skills__get
@@ -519,9 +508,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get All Skills For Child
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /children/{child_id}/skills/{presentation_id}/:
     post:
       operationId: upsert_skill_for_child_children__child_id__skills__presentation_id___post
@@ -557,9 +543,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Upsert Skill For Child
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /employee/phone/{phone}:
     get:
       operationId: get_user_by_phone_employee_phone__phone__get
@@ -587,9 +570,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get User By Phone
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /employee/{phone}/organizations:
     get:
       operationId: get_employees_organization_names_by_phone_employee__phone__organizations_get
@@ -618,9 +598,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Employees Organization Names By Phone
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /employee/{tg_id}:
     get:
       operationId: get_user_by_tg_id_employee__tg_id__get
@@ -648,9 +625,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get User By Tg Id
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /employees/{employee_id}:
     delete:
       operationId: delete_employee_employees__employee_id__delete
@@ -676,9 +650,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Delete Employee
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /employees/{employee_id}/groups:
     get:
       operationId: get_groups_for_employee_employees__employee_id__groups_get
@@ -707,9 +678,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Groups For Employee
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /employees/{employee_id}/groups/{group_id}:
     delete:
       operationId: unlink_group_from_employee_employees__employee_id__groups__group_id__delete
@@ -742,9 +710,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Unlink Group From Employee
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     post:
       operationId: link_employee_to_group_employees__employee_id__groups__group_id__post
       parameters:
@@ -776,9 +741,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Link Employee To Group
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /groups:
     post:
       operationId: add_group_to_organization_groups_post
@@ -803,9 +765,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Add Group To Organization
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /groups/{group_id}:
     delete:
       operationId: delete_group_groups__group_id__delete
@@ -831,9 +790,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Delete Group
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     get:
       operationId: get_group_groups__group_id__get
       parameters:
@@ -860,9 +816,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Group
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /lessons:
     post:
       operationId: upsert_lesson_lessons_post
@@ -896,9 +849,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Upsert Lesson
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /lessons/individual/{child_id}:
     delete:
       operationId: unlink_lesson_from_child_lessons_individual__child_id__delete
@@ -931,9 +881,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Unlink Lesson From Child
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     get:
       operationId: get_schedule_for_child_by_date_lessons_individual__child_id__get
       parameters:
@@ -968,9 +915,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Schedule For Child By Date
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /lessons/{group_id}:
     get:
       operationId: get_schedule_for_group_lessons__group_id__get
@@ -1005,19 +949,10 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Schedule For Group
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /lessons/{lesson_id}:
     delete:
       operationId: delete_lesson_lessons__lesson_id__delete
       parameters:
-      - name: lesson_id
-        in: path
-        required: true
-        schema:
-          type: string
-          title: Lesson Id
       - in: query
         name: schedule_id
         required: true
@@ -1039,9 +974,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Delete Lesson
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /login:
     get:
       operationId: login_login_get
@@ -1115,9 +1047,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Login
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /organization/{organization_id}:
     delete:
       operationId: delete_organization_organization__organization_id__delete
@@ -1143,9 +1072,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Delete Organization
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /organizations:
     get:
       operationId: get_organizations_organizations_get
@@ -1160,9 +1086,6 @@ paths:
                 type: array
           description: Successful Response
       summary: Get Organizations
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     post:
       operationId: create_organization_organizations_post
       requestBody:
@@ -1186,9 +1109,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Create Organization
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /organizations/phone/{phone_number}:
     get:
       operationId: get_organizations_for_user_by_phone_organizations_phone__phone_number__get
@@ -1217,9 +1137,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Organizations For User By Phone
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /organizations/{organization_id}:
     get:
       operationId: get_organization_organizations__organization_id__get
@@ -1247,9 +1164,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Organization
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /organizations/{organization_id}/employee:
     get:
       operationId: get_employees_for_organization_organizations__organization_id__employee_get
@@ -1278,9 +1192,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Employees For Organization
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     post:
       operationId: upsert_employee_organizations__organization_id__employee_post
       parameters:
@@ -1312,9 +1223,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Upsert Employee
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /organizations/{organization_id}/groups:
     get:
       operationId: get_groups_by_organization_organizations__organization_id__groups_get
@@ -1343,9 +1251,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Groups By Organization
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /organizations/{organization_id}/subjects:
     get:
       operationId: get_all_subjects_for_organization_organizations__organization_id__subjects_get
@@ -1374,9 +1279,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get All Subjects For Organization
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     post:
       operationId: create_subject_organizations__organization_id__subjects_post
       parameters:
@@ -1405,9 +1307,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Create Subject
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /organizations/{organization_id}/subjects/{subject_id}:
     get:
       operationId: get_subject_organizations__organization_id__subjects__subject_id__get
@@ -1438,9 +1337,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Subject
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /organizations/{organization_id}/subjects/{subject_id}/{presentation_id}:
     get:
       operationId: get_presentation_organizations__organization_id__subjects__subject_id___presentation_id__get
@@ -1451,18 +1347,6 @@ paths:
         schema:
           title: Presentation Id
           type: string
-      - name: organization_id
-        in: path
-        required: true
-        schema:
-          type: string
-          title: Organization Id
-      - name: subject_id
-        in: path
-        required: true
-        schema:
-          type: string
-          title: Subject Id
       responses:
         '200':
           content:
@@ -1481,9 +1365,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Presentation
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /parent/{parent_id}:
     delete:
       operationId: delete_parent_parent__parent_id__delete
@@ -1509,9 +1390,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Delete Parent
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /parents:
     post:
       operationId: create_parent_parents_post
@@ -1536,9 +1414,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Create Parent
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /parents/child/{child_id}:
     get:
       operationId: get_parents_by_child_id_parents_child__child_id__get
@@ -1554,13 +1429,18 @@ paths:
           content:
             application/json:
               schema:
-                nullable: true
-                type: array
-                items:
-                  "$ref": "#/components/schemas/UserModel"
-                  nullable: true
-                minItems: 2
-                maxItems: 2
+                anyOf:
+                - maxItems: 2
+                  minItems: 2
+                  prefixItems:
+                  - anyOf:
+                    - $ref: '#/components/schemas/UserModel'
+                    - type: 'null'
+                  - anyOf:
+                    - $ref: '#/components/schemas/UserModel'
+                    - type: 'null'
+                  type: array
+                - type: 'null'
                 title: Response Get Parents By Child Id Parents Child  Child Id  Get
           description: Successful Response
         '422':
@@ -1570,9 +1450,69 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Parents By Child Id
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
+  /parents/{parent_id}/child/{child_id}:
+    delete:
+      operationId: unlink_child_from_parent_parents__parent_id__child__child_id__delete
+      parameters:
+      - in: path
+        name: child_id
+        required: true
+        schema:
+          title: Child Id
+          type: string
+      - in: path
+        name: parent_id
+        required: true
+        schema:
+          title: Parent Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Unlink Child From Parent Parents  Parent Id  Child  Child
+                  Id  Delete
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Unlink Child From Parent
+    post:
+      operationId: link_child_to_parent_parents__parent_id__child__child_id__post
+      parameters:
+      - in: path
+        name: child_id
+        required: true
+        schema:
+          title: Child Id
+          type: string
+      - in: path
+        name: parent_id
+        required: true
+        schema:
+          title: Parent Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Link Child To Parent Parents  Parent Id  Child  Child
+                  Id  Post
+                type: 'null'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Link Child To Parent
   /parents/{tg_id}:
     get:
       operationId: get_parent_by_tg_id_parents__tg_id__get
@@ -1600,9 +1540,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Parent By Tg Id
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /presentations/{presentation_id}:
     delete:
       operationId: delete_presentation_presentations__presentation_id__delete
@@ -1628,9 +1565,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Delete Presentation
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /skills_levels:
     get:
       operationId: get_all_skill_levels_skills_levels_get
@@ -1645,9 +1579,6 @@ paths:
                 type: array
           description: Successful Response
       summary: Get All Skill Levels
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     post:
       operationId: upsert_skill_level_skills_levels_post
       requestBody:
@@ -1669,9 +1600,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Upsert Skill Level
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /skills_levels/{skill_level_id}:
     delete:
       operationId: delete_skill_level_skills_levels__skill_level_id__delete
@@ -1695,9 +1623,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Delete Skill Level
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     get:
       operationId: get_skill_level_by_id_skills_levels__skill_level_id__get
       parameters:
@@ -1721,9 +1646,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Skill Level By Id
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /subjects/{subject_id}:
     delete:
       operationId: delete_subject_subjects__subject_id__delete
@@ -1747,9 +1669,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Delete Subject
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /subjects/{subject_id}/presentations:
     get:
       operationId: get_all_presentations_for_subject_subjects__subject_id__presentations_get
@@ -1780,9 +1699,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get All Presentations For Subject
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     post:
       operationId: upsert_presentation_subjects__subject_id__presentations_post
       parameters:
@@ -1814,9 +1730,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Upsert Presentation
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /user_merge:
     post:
       operationId: try_merge_user_by_phone_user_merge_post
@@ -1840,9 +1753,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Try Merge User By Phone
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
   /{group_id}/child:
     get:
       operationId: get_children_by_group_id__group_id__child_get
@@ -1870,9 +1780,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Get Children By Group Id
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
     post:
       operationId: upsert_child__group_id__child_post
       parameters:
@@ -1905,6 +1812,3 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
           description: Validation Error
       summary: Upsert Child
-      x-yc-apigateway-integration:
-        type: serverless_containers
-        container_id: bbaun4q4u3tog5iae1j8
